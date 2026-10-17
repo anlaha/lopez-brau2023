@@ -1,5 +1,5 @@
 ---
-title: "Replication of Study by Lopez-Brau & Jara-Ettinger (2023, Cognition)"
+title: "Replication of 'People can use the placement of objects to infer communicative goals' by Lopez-Brau & Jara-Ettinger (2023, Cognition)"
 author: "Anushka Laha (anlaha@ucsd.edu)"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
