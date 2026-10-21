@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+ <head>
+   <!-- this is where we can load packages and files that we will use to help us build the experiment -->
+   <title>rt experiment</title>
+   <script src="https://unpkg.com/jspsych@8.0.0"></script>
+   <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.0.0"></script>
+   <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@2.0.0"></script>
+   <script src="https://unpkg.com/@jspsych/plugin-preload@2.0.0"></script>
+   <script src="https://unpkg.com/@jspsych/extension-pipe@0.2.0"></script>
+   <link href="https://unpkg.com/jspsych@8.0.0/css/jspsych.css" rel="stylesheet" type="text/css" />
+ </head>
+ <body>
+ </body>
+ <script>
+   //this is where we will write JavaScript code to control the experiments
+   var jsPsych = initJsPsych(
+    {
+      on_finish: function() {
+        jsPsych.data.displayData();
+      }
+    },
+    extensions: [
+      {
+        type: jsPsychExtensionPipe,
+        params: {
+          experiment_id: "PASTE_YOUR_ID_HERE",
+          filename: function () {
+            return subject_id + ".csv";
+          }
+        }
+      }
+    ]
+  );
+
+  var subject_id = jsPsych.randomization.randomID(10);
+
+   //create timeline
+   var timeline = [];
+
+   //define preload trial
+   var preload = {
+    type: jsPsychPreload,
+    images: ['images/blue.png', 'images/orange.png']
+  };
+
+  //add preload trial to timeline
+  timeline.push(preload);
+
+   //define welcome message trial
+   var welcome = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: "Welcome to the experiment. Press any key to begin."
+  };
+
+  //add welcome trial to timeline
+  timeline.push(welcome);
+
+  //adding instruction trial
+  var instructions = {
+  type: jsPsychHtmlKeyboardResponse,
+  stimulus: `
+    <p>In this experiment, a circle will appear in the center 
+    of the screen.</p><p>If the circle is <strong>blue</strong>, 
+    press the letter B on the keyboard as fast as you can.</p>
+    <p>If the circle is <strong>orange</strong>, press the letter O 
+    as fast as you can.</p>
+    <p>Press any key to begin.</p>
+  `
+};
+
+//add instruction trial to timeline
+timeline.push(instructions);
+
+//adding blue trial
+var blue_trial = {
+  type: jsPsychImageKeyboardResponse,
+  stimulus: 'images/blue.png',
+  choices: ['b', 'o']
+};
+
+//adding orange trial
+var orange_trial = {
+  type: jsPsychImageKeyboardResponse,
+  stimulus: 'images/orange.png',
+  choices: ['b', 'o']
+};
+
+//adding blue and orange trials to timeline
+timeline.push(blue_trial, orange_trial);
+
+ //start the experiment
+  jsPsych.run(timeline);
+ </script>
+</html>
