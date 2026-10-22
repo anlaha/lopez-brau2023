@@ -14,13 +14,11 @@
  </body>
  <script>
    //this is where we will write JavaScript code to control the experiments
-   var jsPsych = initJsPsych(
-    {
+   var jsPsych = initJsPsych({
       on_finish: function() {
         jsPsych.data.displayData();
-      }
-    },
-    extensions, [
+      },
+    extensions: [
       {
         type: jsPsychExtensionPipe,
         params: {
@@ -31,6 +29,7 @@
         }
       }
     ]
+   }
   );
 
   var subject_id = jsPsych.randomization.randomID(10);
