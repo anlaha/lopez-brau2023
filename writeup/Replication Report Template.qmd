@@ -12,10 +12,6 @@ format:
 
 ## Introduction
   The main goal of this project is to replicate the results from Experiment 2 of the Lopez-Brau & Ettinger (2023) paper. A secondary goal of this project is to partially replicate the results from Experiment 3a of the same paper. The paper broadly revolves around the inferences humans make about the social meaning of objects, specifically investigating whether adults are able to infer the communicative meaning of objects from their placement. Experiment 2 finds that adults believe that objects that impose a low cost on deciders are more likely to be communicative relative to objects that do not impose a cost. Experiment 3 furthers these findings: adults infer that a low-cost object in front of a door serves as a signal communicated by the person who placed the object that others should avoid that door. I anticipate leading projects on similar questions to investigate what inferences children make about the social meaning of objects. Replicating the methods and analysis will therefore be beneficial, serving as background findings motivating my studies and as a first step to brainstorming potential project designs and analysis plans for my own studies.  
-  
-  There will be two parts of the replication project. The first part will include stimuli that consists of eight sets of images. Each set will have a pair of doors side-by-side: one “low-cost door” (object placed in front of the door) and one “no-cost door” (object placed beside the door). The objects will be a plant, a chair, a pile of books, a pile of cinderblocks, some tape, some meter sticks, a hat, and a fishbowl tied to a tack on a door frame. Participants will be asked to imagine leaving an office and encountering this pair of doors. They will be asked a series of multiple-choice questions: an attention-check (“What objects are in front of the doors?”), test trial (“Which door do you think someone was trying to tell you something?”), a manipulation check (“Which door requires more work to walk through?”) and lastly, an inclusion question (“Do you think you would be able to walk through this door if you wanted to?”). These methods will match the procedure from Experiment 2 of the paper.
-  The second part will include stimuli that consists of 8 more images of pairs of doors, with each pair consisting
-of an empty door and a door with an object placed directly in the middle of one of the doorways. Half of these door pairs will be open and the other half will be closed. The objects will be the same as listed above and participants will again be asked to imagine leaving an office and encountering this pair of doors. Participants will then answer: an attention-check (“What is the only difference between the two exits?”), test trial (“What do you think someone was trying to tell you about the door with the object?”; the options provided will be (a) “You should walk through the door with the object” and (b) “You should not walk through the door with the object”), manipulation-check (same as Exp 2), an inclusion questions (same as Exp 2). These methods are a shortened version of the procedure from Experiment 3a of the paper (only including the "low-cost" condition) to account for time constraints of running the replication on SONA.
 
   I anticipate the main challenges to be setting up the paradigm, specifically programming it using JavaScript which is unfamiliar to me. I imagine that it might be further challenging to code the study design such that failure on the attention checks reroutes participants to the start of the story and does not allow them to continue with the experiment until they pass the check (as per the published study design). I also anticipate collecting data from SONA to be challenging as the process is new to me.
   I hope to learn more about coding a jsPsych experiment and collecting data from an adult sample. Gaining skills in carrying out a jsPsych experiment and collecting data on SONA may both be helpful in the case I need to run or pilot studies on adult samples. Given some familiarity I have with running behavioral studies along with transparent materials and code provided by the authors, I am optimistic that this project will be feasible over the course of this quarter. More importantly, I hope to gain familiarity with how to replicate findings from a published project: from finding relevant materials and files from the original paper, to recreating the methods for data collection, all the way to rerunning the original analyses on my dataset and writing them up.
@@ -30,25 +26,34 @@ Original effect size, power analysis for samples to achieve 80%, 90%, 95% power 
 
 ### Planned Sample
 
-Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any.
+Currently, the planned sample size is 80 participants recruited through UCSD SONA (to match the sample size of the original experiments). The planned sample size will be finalized after we run the above power analyses.
 
 ### Materials
 
-All materials - can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.
+  All materials are hosted in the folder for the original project here: https://osf.io/57n4g/overview. There will be two parts of the replication project. The first part will include stimuli that consists of eight sets of images. Each set will have a pair of doors side-by-side: one “low-cost door” (object placed in front of the door) and one “no-cost door” (object placed beside the door). The objects will be a plant, a chair, a pile of books, a pile of cinderblocks, some tape, some meter sticks, a hat, and a fishbowl tied to a tack on a door frame. 
+
+  The second part will include stimuli that consists of 8 more images of pairs of doors, with each pair consisting
+of an empty door and a door with an object placed directly in the middle of one of the doorways. Half of these door pairs will be open and the other half will be closed. The objects will be the same as listed above and participants will again be asked to imagine leaving an office and encountering this pair of doors. 
 
 ### Procedure	
 
-Can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.
+  At the start of the experiment, participants will be asked to imagine leaving an office and encountering a pair of doors (the pair of doors in each trial will match the description as listed for each part of the experiment above). For the first part of the experiment, they will be asked a series of multiple-choice questions: an attention-check (“What objects are in front of the doors?”), test trial (“Which door do you think someone was trying to tell you something?”), a manipulation check (“Which door requires more work to walk through?”) and lastly, an inclusion question (“Do you think you would be able to walk through this door if you wanted to?”). These methods will match the procedure from Experiment 2 of the paper. 
+
+  For the second part of the experiment, participants will then answer: an attention-check (“What is the only difference between the two exits?”), test trial (“What do you think someone was trying to tell you about the door with the object?”; the options provided will be (a) “You should walk through the door with the object” and (b) “You should not walk through the door with the object”), manipulation-check (same as Exp 2), an inclusion questions (same as Exp 2). These methods are a shortened version of the procedure from Experiment 3a of the paper (only including the "low-cost" condition) to account for time constraints of running the replication on SONA.
 
 ### Analysis Plan
 
-Can also quote directly, though it is less often spelled out effectively for an analysis strategy section.  The key is to report an analysis strategy that is as close to the original - data cleaning rules, data exclusion rules, covariates, etc. - as possible.  
+  Trials in which participants fail the inclusion question will be excluded from the final dataset. The key analyses will be two-tailed binomial tests comparing participants' performance to chance (50%). We will also be conducting bootstrapped 95% CIs for these results.
+  For the data collected in the first part of the study (replicating Exp 2 from the paper), participants' responses will be coded as 0 (choosing the "no-cost" door as more communicative) or 1 (choosing the "low-cost" door as more communicative). Participants' performance will then be compared to chance using a two-tailed binomial test to analyze whether participants chose the "low-cost" door as more communicative compared to the "no-cost" door.
+  For the second part of the study (replicating the "low-cost" condition from Exp 3a), participants' responses will be coded as 0 (choosing the door with no object as the one to avoid) or 1 (choosing the door with the object in front as the one to avoid). Participants' performance will again be compared to chance using a two-tailed binomial test to analyze whether participants chose the "low-cost" door as the one that was being used to communicate to others that it should be avoided. 
+  Since we are not collecting new data for the "no-cost" condition, we will be comparing the the original data collected for that condition to the data we collect here. We will conduct a Fisher’s exact test comparing participants' performance in the two conditions to investigate whether participants inferences of avoiding the door with the object was higher in the "low-cost"
+condition compared to the "no-cost" condition.
 
-**Clarify key analysis of interest here**  You can also pre-specify additional analyses you plan to do.
 
 ### Differences from Original Study
 
-Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect.
+  Although the original study was conducted over MTurk (possibly from a more diverse sample), the data for the replication project will be collected from SONA (from UCSD undergraduate students). The current project will also be combining the procedures from Experiment 2 and part of Experiment 3a. Therefore, the data will be collected from the same sample of participants instead of two different samples (as in the original study). This could lead to possible differences in results in our replication attempt of the "low-cost" condition of Experiment 3a due to fatigue or other order effects. 
+  For the most part, we will be following the same analysis plans conducted in the original set of studies. The only exception is that given that we will only be collecting data for the "low-cost" condition of Experiment 3a in our replication, we will compare the data from our replication project to the "no-cost" condition data collected in the original study. 
 
 ### Methods Addendum (Post Data Collection)
 
@@ -72,19 +77,37 @@ Data preparation following the analysis plan.
 ### Data Preparation
 
 #### Load Relevant Libraries and Functions
+library(lme4)
+library(tidyverse)
 
 #### Import data
 
 #### Data exclusion / filtering
 
+  # The code below will exclude trial data from participants that said they couldn't walk through one of the doors
+
 #### Prepare data for analysis - create columns etc.
+  
+  # The code below will rename the relevant columns (mainly participant ID, test, inclusion check) and code "0" for either the "no-cost" door (for questions from Exp 2) or the empty door (for questions from Exp 3a)
 ```
 
 ### Confirmatory analysis
 
-The analyses as specified in the analysis plan.  
-
 *Side-by-side graph with original graph is ideal here*
+## Plot results from the replicated Exp 2 questions
+## Exp 2 questions: plot results from the replication vs original
+## Plot results from the replicated Exp 3a "low-cost" questions
+## Plot results from the replicated Exp 3a "low-cost" questions VS the original Exp 3a "no-cost" questions
+## Exp 3a comparison: plot results from the replication vs original
+
+## Exp 2 questions: run binomial test comparing choices of "low-cost" door to chance
+### compute bootstrapped 95% CIs
+
+## Exp 3a "low-cost" questions: run binomial test comparing choices of door with object to chance
+### compute bootstrapped 95% CIs
+
+## Exp 3a comparison: run Fisher's test comparing choices of door with object in replicated "low-cost" to original "no-cost"
+
 
 ### Exploratory analyses
 
