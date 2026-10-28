@@ -6,6 +6,7 @@
    <script src="https://unpkg.com/jspsych@8.0.0"></script>
    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.0.0"></script>
    <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@2.0.0"></script>
+   <script src="https://unpkg.com/@jspsych/plugin-html-button-response@2.0.0"></script>
    <script src="https://unpkg.com/@jspsych/plugin-preload@2.0.0"></script>
    <script src="https://unpkg.com/@jspsych/extension-pipe@0.2.0"></script>
    <link href="https://unpkg.com/jspsych@8.0.0/css/jspsych.css" rel="stylesheet" type="text/css" />
@@ -40,7 +41,15 @@
    //define preload trial
    var preload = {
     type: jsPsychPreload,
-    images: ['images/blue.png', 'images/orange.png']
+    images: ['images/lowcost_books.png', 'images/nocost_books.png',
+      'images/lowcost_chairs.png', 'images/nocost_chairs.png',
+      'images/lowcost_cinderblocks.png', 'images/nocost_cinderblocks.png',
+      'images/lowcost_fishbowl.png', 'images/nocost_fishbowl.png',
+      'images/lowcost_hat.png', 'images/nocost_hat.png',
+      'images/lowcost_metersticks.png', 'images/nocost_metersticks.png',
+      'images/lowcost_plant.png', 'images/nocost_plant.png',
+      'images/lowcost_tape.png', 'images/nocost_tape.png',
+    ]
   };
 
   //add preload trial to timeline
@@ -55,38 +64,284 @@
   //add welcome trial to timeline
   timeline.push(welcome);
 
-  //adding instruction trial
-  var instructions = {
-  type: jsPsychHtmlKeyboardResponse,
-  stimulus: `
-    <p>In this experiment, a circle will appear in the center 
-    of the screen.</p><p>If the circle is <strong>blue</strong>, 
-    press the letter B on the keyboard as fast as you can.</p>
-    <p>If the circle is <strong>orange</strong>, press the letter O 
-    as fast as you can.</p>
-    <p>Press any key to begin.</p>
-  `
-};
+//replication of Exp 2
 
-//add instruction trial to timeline
-timeline.push(instructions);
+//add the test stimuli
+ var test_stimuli = [
+   {
+     images: ['images/lowcost_books.png', 'images/nocost_books.png'],
+     text: 'a pile of books',
+     correct_image: 'images/lowcost_books.png'
+   },
+   {
+     images: ['images/lowcost_chairs.png', 'images/nocost_chairs.png'],
+     text: 'a chair',
+     correct_image: 'images/lowcost_chairs.png'
+   },
+   {
+     images: ['images/lowcost_cinderblocks.png', 'images/nocost_cinderblocks.png'],
+     text: 'a pile of cinderblocks',
+     correct_image: 'images/lowcost_cinderblocks.png'
+   },
+   {
+     images: ['images/lowcost_fishbowl.png', 'images/nocost_fishbowl.png'],
+     text: 'a fishbowl tied to a tack on the doorframe',
+     correct_image: 'images/lowcost_fishbowl.png'
+   },
+   {
+     images: ['images/lowcost_hat.png', 'images/nocost_hat.png'],
+     text: 'a hat',
+     correct_image: 'images/lowcost_hat.png'
+   },
+   {
+     images: ['images/lowcost_metersticks.png', 'images/nocost_metersticks.png'],
+     text: 'some metersticks',
+     correct_image: 'images/lowcost_metersticks.png'
+   },
+   {
+     images: ['images/lowcost_plant.png', 'images/nocost_plant.png'],
+     text: 'a plant',
+     correct_image: 'images/lowcost_plant.png'
+   },
+   {
+     images: ['images/lowcost_tape.png', 'images/nocost_tape.png'],
+     text: 'some tape',
+     correct_image: 'images/lowcost_tape.png'
+   }
+ ];
 
-//adding blue trial
-var blue_trial = {
-  type: jsPsychImageKeyboardResponse,
-  stimulus: 'images/blue.png',
-  choices: ['b', 'o']
-};
+//define a test block + randomize the trials
+ var shuffled_test_stimuli = jsPsych.randomization.repeat(test_stimuli,1);
 
-//adding orange trial
-var orange_trial = {
-  type: jsPsychImageKeyboardResponse,
-  stimulus: 'images/orange.png',
-  choices: ['b', 'o']
-};
+  for (let i = 0; i < shuffled_test_stimuli.length; i++) {
+   //cycle through all trials in the current block
+   var current_trial = shuffled_test_stimuli[i];
 
-//adding blue and orange trials to timeline
-timeline.push(blue_trial, orange_trial);
+   // create an introduction trial
+   var introduction = {
+     type: jsPsychHtmlKeyboardResponse,
+     stimulus: 
+     `<p>Imagine you work in an office with two identical exits.</p>
+     <p>One day, as you're leaving, you see ${current_trial['text']} in front of the exits.</p>
+     <p>Click any key to continue.</p>`
+   };
+
+   //add introduction trial to timeline
+   timeline.push(introduction);
+
+   // create an instruction trial
+   var instruction =  {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: 
+    `<p>There will be a single trial and two follow-up questions in total.</p>
+    <p>Before you begin, you will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p>Press any key to continue.</p>`
+   };
+   
+  //add instruction trial to timeline
+   timeline.push(instruction);
+
+   //adding attention check trial
+   var attention_check = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: 
+    `<p>What objects are in front of the door?</p>
+    <p>desks (press 1)</p>
+    <p>${current_trial['text']} (press 2)</p>
+    <p>lightbulbs (press 3)</p>
+    <p>basketballs (press 4)</p>`,
+    choices: ['1', '2', '3', '4']
+   };
+
+   //add attention check trial to timeline
+   timeline.push(attention_check);
+
+   //adding test trial
+   var test_trial = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `<p>Which door do you think someone was trying to tell you something?</p>`,
+    prompt: "Click on the door that you think someone was trying to tell you something.",
+    choices: [`<img src="${current_trial['images'][0]}">`, `<img src="${current_trial['images'][1]}">`]
+   };
+   
+   //add test trial to timeline
+   timeline.push(test_trial);
+
+   //adding manipulation check trial
+   var manipulation_check = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `<p>Which door requires more work to walk through?</p>`,
+    prompt: `<p>Click on the door that requires more work to walk through.</p>`,
+    choices: [`<img src="${current_trial['images'][0]}">`, `<img src="${current_trial['images'][1]}">`, 
+    'Both doors are equally easy to walk through']
+   };
+
+   //add manipulation check trial to timeline
+   timeline.push(manipulation_check);
+
+   //adding inclusion trial
+   var inclusion = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: 
+    `<p>Think back to the door you chose as the one where someone was trying to tell you something.</p>
+    <p>Do you think you would be able to walk through this door if you wanted to?</p>
+    <img src="${current_trial['images'][0]}">
+    <img src="${current_trial['images'][1]}">`,
+    prompt: 
+    `<p>press Y for Yes</p>
+    <p>press N for No</p>`,
+    choices: ['Y', 'N']
+   };
+   
+   //add inclusion trial to timeline
+   timeline.push(inclusion);
+
+   //end the for loop here
+ }
+
+
+
+ //replication of Exp 3
+
+//add the test stimuli
+ var test_stimuli_2 = [
+   {
+     images: ['images/lowcost_books.png', 'images/open_door.png'],
+     text: 'a pile of books',
+     correct_image: 'images/lowcost_books.png'
+   },
+   {
+     images: ['images/lowcost_chairs.png', 'images/open_door.png'],
+     text: 'a chair',
+     correct_image: 'images/lowcost_chairs.png'
+   },
+   {
+     images: ['images/lowcost_cinderblocks.png', 'images/open_door.png'],
+     text: 'a pile of cinderblocks',
+     correct_image: 'images/lowcost_cinderblocks.png'
+   },
+   {
+     images: ['images/lowcost_fishbowl.png', 'images/closed_door.png'],
+     text: 'a fishbowl tied to a tack on the doorframe',
+     correct_image: 'images/lowcost_fishbowl.png'
+   },
+   {
+     images: ['images/lowcost_hat.png', 'images/closed_door.png'],
+     text: 'a hat',
+     correct_image: 'images/lowcost_hat.png'
+   },
+   {
+     images: ['images/lowcost_metersticks.png', 'images/open_door.png'],
+     text: 'some metersticks',
+     correct_image: 'images/lowcost_metersticks.png'
+   },
+   {
+     images: ['images/lowcost_plant.png', 'images/closed_door.png'],
+     text: 'a plant',
+     correct_image: 'images/lowcost_plant.png'
+   },
+   {
+     images: ['images/lowcost_tape.png', 'images/closed_door.png'],
+     text: 'some tape',
+     correct_image: 'images/lowcost_tape.png'
+   }
+ ];
+
+//define a test block + randomize the trials
+ var shuffled_test_stimuli_2 = jsPsych.randomization.repeat(test_stimuli_2,1);
+
+  for (let i = 0; i < shuffled_test_stimuli_2.length; i++) {
+   //cycle through all trials in the current block
+   var current_trial_2 = shuffled_test_stimuli_2[i];
+
+   // create an introduction trial
+   var introduction_2 = {
+     type: jsPsychHtmlKeyboardResponse,
+     stimulus: 
+     `<p>You're leaving an office building and find two identical exits. Near one of the exits is ${current_trial_2['text']}.</p>
+     <p>You're not sure if someone wanted you to walk through this exit or walk through the other one instead.</p>
+     <p>Click any key to continue.</p>`
+   };
+
+   //add introduction trial to timeline
+   timeline.push(introduction_2);
+
+   // create an instruction trial
+   var instruction_2 =  {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: 
+    `<p>There will be a single trial and two follow-up questions in total.</p>
+    <p>Before you begin, you will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p>Press any key to continue.</p>`
+   };
+   
+  //add instruction trial to timeline
+   timeline.push(instruction_2);
+
+   //adding attention check trial
+   var attention_check_2 = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: 
+    `<p>What is the only difference between the two exits?</p>
+    <p>color of the door (press 1)</p>
+    <p>${current_trial_2['text']} (press 2)</p>
+    <p>amount of lighting (press 3)</p>
+    <p>not sure (press 4)</p>`,
+    choices: ['1', '2', '3', '4']
+   };
+
+   //add attention check trial to timeline
+   timeline.push(attention_check_2);
+
+   //adding test trial
+   var test_trial_2 = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `<p>What do you think someone was trying to tell you about the door with ${current_trial_2['text']}?</p>
+    <img src="${current_trial_2['images'][0]}">
+    <img src="${current_trial_2['images'][1]}">`,
+    choices: [`"You <b>should</b> walk through the door with ${current_trial_2['text']}"`,
+    `"You <b>should not</b> walk through the door with ${current_trial_2['text']}"`]
+   };
+   
+   //add test trial to timeline
+   timeline.push(test_trial_2);
+
+   //adding manipulation check trial
+   var manipulation_check_2 = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `<p>Which door requires more work to walk through?</p>`,
+    prompt: `<p>Click on the door that requires more work to walk through.</p>`,
+    choices: [`<img src="${current_trial_2['images'][0]}">`, `<img src="${current_trial_2['images'][1]}">`, 
+    'Both doors are equally easy to walk through']
+   };
+
+   //add manipulation check trial to timeline
+   timeline.push(manipulation_check_2);
+
+   //adding inclusion trial
+   var inclusion_2 = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: 
+    `<p>Think back to the door you chose as the one where someone was trying to tell you something.</p>
+    <p>Do you think you would be able to walk through this door if you wanted to?</p>
+    <img src="${current_trial_2['images'][0]}">
+    <img src="${current_trial_2['images'][1]}">`,
+    prompt: 
+    `<p>press Y for Yes</p>
+    <p>press N for No</p>`,
+    choices: ['Y', 'N']
+   };
+   
+   //add inclusion trial to timeline
+   timeline.push(inclusion_2);
+
+   //end the for loop here
+ }
+
 
  //start the experiment
   jsPsych.run(timeline);
