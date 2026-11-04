@@ -178,13 +178,19 @@
   //add instruction trial to timeline
    timeline.push(instruction);
 
-   //adding attention check trial
-   var attention_check = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: 
-    `<p>What objects are in front of the door?</p>`,
-    choices: jsPsych.randomization.shuffle([`<text ="${current_trial['text'][0]}">`, `<text ="${current_trial['text'][1]}">`,`<text ="${current_trial['text'][2]}">`, `<text ="${current_trial['text'][3]}">`])
-   };
+  //adding attention check trial
+    var ac_options = jsPsych.randomization.shuffle(current_trial['text']); // text[0] is the correct object
+
+    var attention_check = {
+      type: jsPsychHtmlButtonResponse,
+      stimulus:
+      `<p>What objects are in front of the door?</p>`,
+      choices: ac_options,
+      data: { correct_choice: ac_options.indexOf(current_trial['text'][0]) },
+      on_finish: function(data){
+        data.correct = (data.response === data.correct_choice);
+      }
+    };
 
    //add attention check trial to timeline
    timeline.push(attention_check);
@@ -195,7 +201,11 @@
     stimulus: `<p>Which door do you think someone was trying to tell you something?</p>`,
     prompt: "Click on the door that you think someone was trying to tell you something.",
     choices: jsPsych.randomization.shuffle([`<img src="${current_trial['images'][0]}">`, 
-    `<img src="${current_trial['images'][1]}">`])
+    `<img src="${current_trial['images'][1]}">`]),
+    data: { correct_choice: current_trial['correct_image']},
+      on_finish: function(data){
+        data.correct = (data.response === data.correct_choice);
+      }
    };
    
    //add test trial to timeline
@@ -207,7 +217,11 @@
     stimulus: `<p>Which door requires more work to walk through?</p>`,
     prompt: `<p>Click on the door that requires more work to walk through.</p>`,
     choices: jsPsych.randomization.shuffle([`<img src="${current_trial['images'][0]}">`, 
-    `<img src="${current_trial['images'][1]}">`, 'Both doors are equally easy to walk through'])
+    `<img src="${current_trial['images'][1]}">`, 'Both doors are equally easy to walk through']),
+    data: { correct_choice: current_trial['correct_image']},
+      on_finish: function(data){
+        data.correct = (data.response === data.correct_choice);
+      }
    };
 
    //add manipulation check trial to timeline
@@ -242,49 +256,41 @@
    {
      images: ['images/lowcost_books.png', 'images/open_door.png'],
      text: ['a pile of books', 'footballs', 'lightbulbs', 'desks'],
-     shuffled_text: jsPsych.randomization.shuffle(['a pile of books', 'footballs', 'lightbulbs', 'desks']),
      correct_image: 'images/lowcost_books.png'
    },
    {
      images: ['images/lowcost_chairs.png', 'images/open_door.png'],
      text: ['a chair', 'basketballs', 'a skateboard', 'a trash can'],
-     shuffled_text: jsPsych.randomization.shuffle(['a chair', 'basketballs', 'a skateboard', 'a trash can']),
      correct_image: 'images/lowcost_chairs.png'
    },
    {
      images: ['images/lowcost_cinderblocks.png', 'images/open_door.png'],
      text: ['a pile of cinderblocks', 'toys', 'bottles', 'bikes'],
-     shuffled_text: jsPsych.randomization.shuffle(['a pile of cinderblocks', 'toys', 'bottles', 'bikes']),
      correct_image: 'images/lowcost_cinderblocks.png'
    },
    {
      images: ['images/lowcost_fishbowl.png', 'images/closed_door.png'],
      text: ['a fishbowl tied to a tack on the doorframe', 'a balloon', 'a book', 'a bucket'],
-     shuffled_text: jsPsych.randomization.shuffle(['a fishbowl tied to a tack on the doorframe', 'a balloon', 'a book', 'a bucket']),
      correct_image: 'images/lowcost_fishbowl.png'
    },
    {
      images: ['images/lowcost_hat.png', 'images/closed_door.png'],
      text: ['a hat', 'a shovel', 'a backpack', 'a coat'],
-     shuffled_text: jsPsych.randomization.shuffle(['a hat', 'a shovel', 'a backpack', 'a coat']),
      correct_image: 'images/lowcost_hat.png'
    },
    {
      images: ['images/lowcost_metersticks.png', 'images/open_door.png'],
      text: ['some metersticks', 'some laptops', 'a table', 'a tree'],
-     shuffled_text: jsPsych.randomization.shuffle(['some metersticks', 'some laptops', 'a table', 'a tree']),
      correct_image: 'images/lowcost_metersticks.png'
    },
    {
      images: ['images/lowcost_plant.png', 'images/closed_door.png'],
      text: ['a plant', 'a spoon', 'a jacket', 'a couch'],
-     shuffled_text: jsPsych.randomization.shuffle(['a plant', 'a spoon', 'a jacket', 'a couch']),
      correct_image: 'images/lowcost_plant.png'
    },
    {
      images: ['images/lowcost_tape.png', 'images/closed_door.png'],
      text: ['some tape', 'a lamp', 'a suitcase' , 'a pair of shoes'],
-     shuffled_text: jsPsych.randomization.shuffle(['some tape', 'a lamp', 'a suitcase' , 'a pair of shoes']),
      correct_image: 'images/lowcost_tape.png'
    }
  ];
@@ -323,15 +329,21 @@
    timeline.push(instruction_2);
 
    //adding attention check trial
-   var attention_check_2 = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: 
-    `<p>What is the only difference between the two exits?</p>`,
-    choices:  jsPsych.randomization.shuffle([`<text ="${current_trial_2['text'][0]}">`, `<text ="${current_trial_2['text'][1]}">`,`<text ="${current_trial_2['text'][2]}">`, `<text ="${current_trial_2['text'][3]}">`])
-   };
+    var ac2_options = jsPsych.randomization.shuffle(current_trial_2['text']); // text[0] is the correct object
+
+    var attention_check2 = {
+      type: jsPsychHtmlButtonResponse,
+      stimulus:
+      `<p>What objects are in front of the door?</p>`,
+      choices: ac2_options,
+      data: { correct_choice: ac2_options.indexOf(current_trial_2['text'][0]) },
+      on_finish: function(data){
+        data.correct = (data.response === data.correct_choice);
+      }
+    };
 
    //add attention check trial to timeline
-   timeline.push(attention_check_2);
+   timeline.push(attention_check2);
 
    //adding test trial
    var test_trial_2 = {
@@ -340,7 +352,11 @@
     ${jsPsych.randomization.shuffle([`<img src="${current_trial_2['images'][0]}">`, 
     `<img src="${current_trial_2['images'][1]}">`])}`,
     choices: [`"You <b>should</b> walk through the door with ${current_trial_2['text']}"`,
-    `"You <b>should not</b> walk through the door with ${current_trial_2['text']}"`]
+    `"You <b>should not</b> walk through the door with ${current_trial_2['text']}"`],
+    data: { correct_choice: current_trial['correct_image']},
+      on_finish: function(data){
+        data.correct = (data.response === data.correct_choice);
+      }
    };
    
    //add test trial to timeline
@@ -352,7 +368,11 @@
     stimulus: `<p>Which door requires more work to walk through?</p>`,
     prompt: `<p>Click on the door that requires more work to walk through.</p>`,
     choices: jsPsych.randomization.shuffle([`<img src="${current_trial_2['images'][0]}">`, 
-    `<img src="${current_trial_2['images'][1]}">`, 'Both doors are equally easy to walk through'])
+    `<img src="${current_trial_2['images'][1]}">`, 'Both doors are equally easy to walk through']),
+    data: { correct_choice: current_trial['correct_image']},
+      on_finish: function(data){
+        data.correct = (data.response === data.correct_choice);
+      }
    };
 
    //add manipulation check trial to timeline
