@@ -23,10 +23,30 @@ Link to my repository: https://github.com/anlaha/lopez-brau2023; Original Paper 
 ### Power Analysis
 
 Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size.
+```{r}
+#original effect size of Exp 2
+h.2 = ES.h(.725, .5)
+
+#80% power to detect that effect
+pwr.p.test(h = h.2, power = 0.8)$n
+#90% power to detect that effect
+pwr.p.test(h = h.2, power = 0.9)$n
+#95% power to detect that effect
+pwr.p.test(h = h.2, power = 0.95)$n
+
+#original effect size of Exp 3
+h.3 = ES.h(.8755, .5)
+
+#80% power to detect that effect
+pwr.p.test(h = h.3, power = 0.8)$n
+
+#how much power would we have with the original sample size
+pwr.p.test(h = h.2, n = 80)$power
+```
 
 ### Planned Sample
 
-Currently, the planned sample size is 80 participants recruited through UCSD SONA (to match the sample size of the original experiments). The planned sample size will be finalized after we run the above power analyses.
+The planned sample size is 80 participants recruited through UCSD SONA (to match the sample size of the original experiments). We would have 99% power to detect the effect size from the original Experiment 2.
 
 ### Materials
 

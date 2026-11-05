@@ -306,7 +306,7 @@
    var introduction_2 = {
      type: jsPsychHtmlKeyboardResponse,
      stimulus: 
-     `<p>You're leaving an office building and find two identical exits. Near one of the exits is ${current_trial_2['text']}.</p>
+     `<p>You're leaving an office building and find two identical exits. Near one of the exits is ${current_trial_2['text'][0]}.</p>
      <p>You're not sure if someone wanted you to walk through this exit or walk through the other one instead.</p>
      <p>Click any key to continue.</p>`
    };
@@ -348,12 +348,12 @@
    //adding test trial
    var test_trial_2 = {
     type: jsPsychHtmlButtonResponse,
-    stimulus: `<p>What do you think someone was trying to tell you about the door with ${current_trial_2['text']}?</p>
+    stimulus: `<p>What do you think someone was trying to tell you about the door with ${current_trial_2['text'][0]}?</p>
     ${jsPsych.randomization.shuffle([`<img src="${current_trial_2['images'][0]}">`, 
     `<img src="${current_trial_2['images'][1]}">`])}`,
-    choices: [`"You <b>should</b> walk through the door with ${current_trial_2['text']}"`,
-    `"You <b>should not</b> walk through the door with ${current_trial_2['text']}"`],
-    data: { correct_choice: current_trial['correct_image']},
+    choices: [`"You <b>should</b> walk through the door with ${current_trial_2['text'][0]}"`,
+    `"You <b>should not</b> walk through the door with ${current_trial_2['text'][0]}"`],
+    data: { correct_choice: "You <b>should not</b> walk through the door with ${current_trial_2['text'][0]}"},
       on_finish: function(data){
         data.correct = (data.response === data.correct_choice);
       }
