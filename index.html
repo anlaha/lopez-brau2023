@@ -15,9 +15,13 @@
  </body>
  <script>
    //this is where we will write JavaScript code to control the experiments
+
+  //create timeline
+   var timeline = [];
+
    var jsPsych = initJsPsych({
       on_finish: function() {
-        jsPsych.data.displayData();
+        
       },
     extensions: [
       {
@@ -34,9 +38,7 @@
   );
 
   var subject_id = jsPsych.randomization.randomID(10);
-
-   //create timeline
-   var timeline = [];
+   
 
    //define preload trial
    var preload = {
@@ -49,6 +51,7 @@
       'images/lowcost_metersticks.png', 'images/nocost_metersticks.png',
       'images/lowcost_plant.png', 'images/nocost_plant.png',
       'images/lowcost_tape.png', 'images/nocost_tape.png',
+      'images/open_door.png', 'images/closed_door.png'
     ]
   };
 
@@ -98,6 +101,7 @@
 
   //add consent trial to timeline
   timeline.push(consent);
+
 
 //replication of Exp 2
 
@@ -161,9 +165,6 @@
      <p>Click any key to continue.</p>`
    };
 
-   //add introduction trial to timeline
-   timeline.push(introduction);
-
    // create an instruction trial
    var instruction =  {
     type: jsPsychHtmlKeyboardResponse,
@@ -175,8 +176,6 @@
     <p>Press any key to continue.</p>`
    };
    
-  //add instruction trial to timeline
-   timeline.push(instruction);
 
   //adding attention check trial
     var ac_options = jsPsych.randomization.shuffle(current_trial['text']); // text[0] is the correct object
@@ -192,16 +191,30 @@
       }
     };
 
-   //add attention check trial to timeline
-   timeline.push(attention_check);
+
+   //creating a loop for if they fail the attention check
+   var loop_attn_check = {
+    timeline: [introduction, instruction, attention_check],
+    loop_function: function(data){
+      if (data.values()[2].response === data.values()[2].correct_choice) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+};
+
+//add loop with introduction, instruction, and attention check to timeline
+   timeline.push(loop_attn_check);
+
 
    //adding test trial
    var test_trial = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `<p>Which door do you think someone was trying to tell you something?</p>`,
     prompt: "Click on the door that you think someone was trying to tell you something.",
-    choices: jsPsych.randomization.shuffle([`<img src="${current_trial['images'][0]}">`, 
-    `<img src="${current_trial['images'][1]}">`]),
+    choices: jsPsych.randomization.shuffle([`<img src="${current_trial['images'][0]}"+ width=300px + height=600px>`, 
+    `<img src="${current_trial['images'][1]}"+ width=300px + height=600px>`]),
     data: { correct_choice: current_trial['correct_image']},
       on_finish: function(data){
         data.correct = (data.response === data.correct_choice);
@@ -216,8 +229,8 @@
     type: jsPsychHtmlButtonResponse,
     stimulus: `<p>Which door requires more work to walk through?</p>`,
     prompt: `<p>Click on the door that requires more work to walk through.</p>`,
-    choices: jsPsych.randomization.shuffle([`<img src="${current_trial['images'][0]}">`, 
-    `<img src="${current_trial['images'][1]}">`, 'Both doors are equally easy to walk through']),
+    choices: jsPsych.randomization.shuffle([`<img src="${current_trial['images'][0]}"+ width=300px + height=600px>`, 
+    `<img src="${current_trial['images'][1]}"+ width=300px + height=600px>`, 'Both doors are equally easy to walk through']),
     data: { correct_choice: current_trial['correct_image']},
       on_finish: function(data){
         data.correct = (data.response === data.correct_choice);
@@ -232,9 +245,11 @@
     type: jsPsychHtmlKeyboardResponse,
     stimulus: 
     `<p>Think back to the door you chose as the one where someone was trying to tell you something.</p>
-    <p>Do you think you would be able to walk through this door if you wanted to?</p>
-    ${jsPsych.randomization.shuffle([`<img src="${current_trial['images'][0]}">`, 
-    `<img src="${current_trial['images'][1]}">`])}`,
+    <p>Do you think you would be able to walk through this door if you wanted to?</p>` +
+      jsPsych.randomization.shuffle([
+        `<img src="${current_trial['images'][0]}" + width=300px + height=600px>`,
+        `<img src="${current_trial['images'][1]}" + width=300px + height=600px>`
+      ]).join(''),
     prompt: 
     `<p>press Y for Yes</p>
     <p>press N for No</p>`,
@@ -247,9 +262,7 @@
    //end the for loop here
  }
 
-
-
- //replication of Exp 3
+  //replication of Exp 3
 
 //add the test stimuli
  var test_stimuli_2 = [
@@ -348,9 +361,11 @@
    //adding test trial
    var test_trial_2 = {
     type: jsPsychHtmlButtonResponse,
-    stimulus: `<p>What do you think someone was trying to tell you about the door with ${current_trial_2['text'][0]}?</p>
-    ${jsPsych.randomization.shuffle([`<img src="${current_trial_2['images'][0]}">`, 
-    `<img src="${current_trial_2['images'][1]}">`])}`,
+    stimulus: `<p>What do you think someone was trying to tell you about the door with ${current_trial_2['text'][0]}?</p>` +
+      jsPsych.randomization.shuffle([
+        `<img src="${current_trial_2['images'][0]}" + width=300px + height=600px>`,
+        `<img src="${current_trial_2['images'][1]}" + width=300px + height=600px>`
+      ]).join(''),
     choices: [`"You <b>should</b> walk through the door with ${current_trial_2['text'][0]}"`,
     `"You <b>should not</b> walk through the door with ${current_trial_2['text'][0]}"`],
     data: { correct_choice: "You <b>should not</b> walk through the door with ${current_trial_2['text'][0]}"},
@@ -367,9 +382,9 @@
     type: jsPsychHtmlButtonResponse,
     stimulus: `<p>Which door requires more work to walk through?</p>`,
     prompt: `<p>Click on the door that requires more work to walk through.</p>`,
-    choices: jsPsych.randomization.shuffle([`<img src="${current_trial_2['images'][0]}">`, 
-    `<img src="${current_trial_2['images'][1]}">`, 'Both doors are equally easy to walk through']),
-    data: { correct_choice: current_trial['correct_image']},
+    choices: jsPsych.randomization.shuffle([`<img src="${current_trial_2['images'][0]}"+ width=300px + height=600px>`, 
+    `<img src="${current_trial_2['images'][1]}"+ width=300px + height=600px>`, 'Both doors are equally easy to walk through']),
+    data: { correct_choice: current_trial_2['correct_image']},
       on_finish: function(data){
         data.correct = (data.response === data.correct_choice);
       }
@@ -383,9 +398,11 @@
     type: jsPsychHtmlKeyboardResponse,
     stimulus: 
     `<p>Think back to the door you chose as the one where someone was trying to tell you something.</p>
-    <p>Do you think you would be able to walk through this door if you wanted to?</p>
-    ${jsPsych.randomization.shuffle([`<img src="${current_trial_2['images'][0]}">`, 
-    `<img src="${current_trial_2['images'][1]}">`])}`,
+    <p>Do you think you would be able to walk through this door if you wanted to?</p>` +
+      jsPsych.randomization.shuffle([
+        `<img src="${current_trial_2['images'][0]}" + width=300px + height=600px>`,
+        `<img src="${current_trial_2['images'][1]}" + width=300px + height=600px>`
+      ]).join(''),
     prompt: 
     `<p>press Y for Yes</p>
     <p>press N for No</p>`,
@@ -397,6 +414,20 @@
 
    //end the for loop here
  }
+
+ //debrief 
+ var debrief = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: `<p>Thank you for participating in the experiment. We are conducting research on reasoning. The current experiment is an attempted replication of the 
+      published paper, 'People can use the placement of objects to infer communicative goals' by Lopez-Brau & Jara-Ettinger, 2023. In this experiment, you were 
+      presented with two options and had to figure out which option another person wanted you to choose. The goal of this experiement is to investigate how humans 
+      infer the communicative meaning of objects from static scenes. If you have any remaining questions about this experiment, please reach out to the primary 
+      researcher (Anushka Laha: anlaha@ucsd.edu) or the supervisor Dr. Bria Long (brlong@ucsd.edu). Press any key to finish.</p>`
+  };
+  
+  //add debrief trial to timeline
+  timeline.push(debrief);
+
 
 
  //start the experiment
