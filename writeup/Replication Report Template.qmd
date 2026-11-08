@@ -99,12 +99,14 @@ Data preparation following the analysis plan.
 #### Load Relevant Libraries and Functions
 library(lme4)
 library(tidyverse)
+library(here)
 
 #### Import data
 
 #### Data exclusion / filtering
 
-  # The code below will exclude trial data from participants that said they couldn't walk through one of the doors
+
+# The code below will exclude trial data from participants that said they couldn't walk through one of the doors
 
 #### Prepare data for analysis - create columns etc.
   

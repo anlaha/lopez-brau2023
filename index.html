@@ -202,7 +202,7 @@
             return true;
         }
     }
-};
+  };
 
 //add loop with introduction, instruction, and attention check to timeline
    timeline.push(loop_attn_check);
@@ -324,9 +324,6 @@
      <p>Click any key to continue.</p>`
    };
 
-   //add introduction trial to timeline
-   timeline.push(introduction_2);
-
    // create an instruction trial
    var instruction_2 =  {
     type: jsPsychHtmlKeyboardResponse,
@@ -337,9 +334,6 @@
     <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
     <p>Press any key to continue.</p>`
    };
-   
-  //add instruction trial to timeline
-   timeline.push(instruction_2);
 
    //adding attention check trial
     var ac2_options = jsPsych.randomization.shuffle(current_trial_2['text']); // text[0] is the correct object
@@ -355,8 +349,21 @@
       }
     };
 
-   //add attention check trial to timeline
-   timeline.push(attention_check2);
+   //creating a loop for if they fail the attention check
+   var loop_attn_check_2 = {
+    timeline: [introduction_2, instruction_2, attention_check2],
+    loop_function: function(data){
+      if (data.values()[2].response === data.values()[2].correct_choice) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+};
+
+//add loop with introduction, instruction, and attention check to timeline
+   timeline.push(loop_attn_check_2);
+
 
    //adding test trial
    var test_trial_2 = {
