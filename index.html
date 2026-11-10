@@ -38,6 +38,7 @@
   );
 
   var subject_id = jsPsych.randomization.randomID(10);
+  jsPsych.data.addProperties({subject_id: subject_id});
    
 
    //define preload trial
@@ -185,7 +186,7 @@
       stimulus:
       `<p>What objects are in front of the door?</p>`,
       choices: ac_options,
-      data: { correct_choice: ac_options.indexOf(current_trial['text'][0]) },
+      data: { block: 'exp2', question: 'attention_check', object: current_trial['text'][0], correct_choice: ac_options.indexOf(current_trial['text'][0]) },
       on_finish: function(data){
         data.correct = (data.response === data.correct_choice);
       }
@@ -209,13 +210,16 @@
 
 
    //adding test trial
+   //shuffle the image paths first so the left/right order can be saved in the data
+   var test_images = jsPsych.randomization.shuffle([current_trial['images'][0], current_trial['images'][1]]);
    var test_trial = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `<p>Which door do you think someone was trying to tell you something?</p>`,
     prompt: "Click on the door that you think someone was trying to tell you something.",
-    choices: jsPsych.randomization.shuffle([`<img src="${current_trial['images'][0]}"+ width=300px + height=600px>`, 
-    `<img src="${current_trial['images'][1]}"+ width=300px + height=600px>`]),
-    data: { correct_choice: current_trial['correct_image']},
+    choices: [`<img src="${test_images[0]}"+ width=300px + height=600px>`, 
+    `<img src="${test_images[1]}"+ width=300px + height=600px>`],
+    data: { block: 'exp2', question: 'test', object: current_trial['text'][0], choice_order: test_images.join(';'),
+      correct_choice: test_images.indexOf(current_trial['correct_image'])},
       on_finish: function(data){
         data.correct = (data.response === data.correct_choice);
       }
@@ -225,13 +229,17 @@
    timeline.push(test_trial);
 
    //adding manipulation check trial
+   var mc_options = jsPsych.randomization.shuffle([current_trial['images'][0], current_trial['images'][1], 'equal']);
    var manipulation_check = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `<p>Which door requires more work to walk through?</p>`,
     prompt: `<p>Click on the door that requires more work to walk through.</p>`,
-    choices: jsPsych.randomization.shuffle([`<img src="${current_trial['images'][0]}"+ width=300px + height=600px>`, 
-    `<img src="${current_trial['images'][1]}"+ width=300px + height=600px>`, 'Both doors are equally easy to walk through']),
-    data: { correct_choice: current_trial['correct_image']},
+    choices: mc_options.map(function(opt){
+      if (opt === 'equal') { return 'Both doors are equally easy to walk through'; }
+      return `<img src="${opt}"+ width=300px + height=600px>`;
+    }),
+    data: { block: 'exp2', question: 'manipulation_check', object: current_trial['text'][0], choice_order: mc_options.join(';'),
+      correct_choice: mc_options.indexOf(current_trial['correct_image'])},
       on_finish: function(data){
         data.correct = (data.response === data.correct_choice);
       }
@@ -253,7 +261,8 @@
     prompt: 
     `<p>press Y for Yes</p>
     <p>press N for No</p>`,
-    choices: ['Y', 'N']
+    choices: ['Y', 'N'],
+    data: { block: 'exp2', question: 'inclusion', object: current_trial['text'][0] }
    };
    
    //add inclusion trial to timeline
@@ -343,7 +352,7 @@
       stimulus:
       `<p>What objects are in front of the door?</p>`,
       choices: ac2_options,
-      data: { correct_choice: ac2_options.indexOf(current_trial_2['text'][0]) },
+      data: { block: 'exp3a', question: 'attention_check', object: current_trial_2['text'][0], correct_choice: ac2_options.indexOf(current_trial_2['text'][0]) },
       on_finish: function(data){
         data.correct = (data.response === data.correct_choice);
       }
@@ -375,7 +384,8 @@
       ]).join(''),
     choices: [`"You <b>should</b> walk through the door with ${current_trial_2['text'][0]}"`,
     `"You <b>should not</b> walk through the door with ${current_trial_2['text'][0]}"`],
-    data: { correct_choice: "You <b>should not</b> walk through the door with ${current_trial_2['text'][0]}"},
+    // choices are in a fixed order: 0 = "should", 1 = "should not" (avoid the door with the object)
+    data: { block: 'exp3a', question: 'test', object: current_trial_2['text'][0], correct_choice: 1 },
       on_finish: function(data){
         data.correct = (data.response === data.correct_choice);
       }
@@ -385,13 +395,17 @@
    timeline.push(test_trial_2);
 
    //adding manipulation check trial
+   var mc2_options = jsPsych.randomization.shuffle([current_trial_2['images'][0], current_trial_2['images'][1], 'equal']);
    var manipulation_check_2 = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `<p>Which door requires more work to walk through?</p>`,
     prompt: `<p>Click on the door that requires more work to walk through.</p>`,
-    choices: jsPsych.randomization.shuffle([`<img src="${current_trial_2['images'][0]}"+ width=300px + height=600px>`, 
-    `<img src="${current_trial_2['images'][1]}"+ width=300px + height=600px>`, 'Both doors are equally easy to walk through']),
-    data: { correct_choice: current_trial_2['correct_image']},
+    choices: mc2_options.map(function(opt){
+      if (opt === 'equal') { return 'Both doors are equally easy to walk through'; }
+      return `<img src="${opt}"+ width=300px + height=600px>`;
+    }),
+    data: { block: 'exp3a', question: 'manipulation_check', object: current_trial_2['text'][0], choice_order: mc2_options.join(';'),
+      correct_choice: mc2_options.indexOf(current_trial_2['correct_image'])},
       on_finish: function(data){
         data.correct = (data.response === data.correct_choice);
       }
@@ -413,7 +427,8 @@
     prompt: 
     `<p>press Y for Yes</p>
     <p>press N for No</p>`,
-    choices: ['Y', 'N']
+    choices: ['Y', 'N'],
+    data: { block: 'exp3a', question: 'inclusion', object: current_trial_2['text'][0] }
    };
    
    //add inclusion trial to timeline
