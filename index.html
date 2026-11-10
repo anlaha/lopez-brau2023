@@ -157,6 +157,18 @@
    //cycle through all trials in the current block
    var current_trial = shuffled_test_stimuli[i];
 
+  //create trial with overall instructions for exp 2
+   var overall_instructions = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: 
+    `<p>In the first part of this experiment, you will see eight pairs of doors one at a time.</p>
+    <p>For each set of doors, you will complete six trials.</p> 
+    <p>The first two trials will have some instructions and the four following trials will require you to answer questions.</p>
+    <p>Press any key to continue.</p>`
+   };
+
+   timeline.push(overall_instructions);
+
    // create an introduction trial
    var introduction = {
      type: jsPsychHtmlKeyboardResponse,
@@ -170,8 +182,7 @@
    var instruction =  {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: 
-    `<p>There will be a single trial and two follow-up questions in total.</p>
-    <p>Before you begin, you will have to answer a question on the next slide.</p>
+    `<p>Before you begin, you will have to answer a question on the next slide.</p>
     <p>You must answer it correctly to continue.</p>
     <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
     <p>Press any key to continue.</p>`
@@ -216,8 +227,8 @@
     type: jsPsychHtmlButtonResponse,
     stimulus: `<p>Which door do you think someone was trying to tell you something?</p>`,
     prompt: "Click on the door that you think someone was trying to tell you something.",
-    choices: [`<img src="${test_images[0]}"+ width=300px + height=600px>`, 
-    `<img src="${test_images[1]}"+ width=300px + height=600px>`],
+    choices: [`<img src="${test_images[0]}" style="height:500px">`, 
+    `<img src="${test_images[1]}" style="height:500px">`],
     data: { block: 'exp2', question: 'test', object: current_trial['text'][0], choice_order: test_images.join(';'),
       correct_choice: test_images.indexOf(current_trial['correct_image'])},
       on_finish: function(data){
@@ -236,7 +247,7 @@
     prompt: `<p>Click on the door that requires more work to walk through.</p>`,
     choices: mc_options.map(function(opt){
       if (opt === 'equal') { return 'Both doors are equally easy to walk through'; }
-      return `<img src="${opt}"+ width=300px + height=600px>`;
+      return `<img src="${opt}" style="height:500px">`;
     }),
     data: { block: 'exp2', question: 'manipulation_check', object: current_trial['text'][0], choice_order: mc_options.join(';'),
       correct_choice: mc_options.indexOf(current_trial['correct_image'])},
@@ -255,8 +266,8 @@
     `<p>Think back to the door you chose as the one where someone was trying to tell you something.</p>
     <p>Do you think you would be able to walk through this door if you wanted to?</p>` +
       jsPsych.randomization.shuffle([
-        `<img src="${current_trial['images'][0]}" + width=300px + height=600px>`,
-        `<img src="${current_trial['images'][1]}" + width=300px + height=600px>`
+        `<img src="${current_trial['images'][0]}" style="height:500px">`,
+        `<img src="${current_trial['images'][1]}" style="height:500px">`
       ]).join(''),
     prompt: 
     `<p>press Y for Yes</p>
@@ -324,6 +335,18 @@
    //cycle through all trials in the current block
    var current_trial_2 = shuffled_test_stimuli_2[i];
 
+   //create trial with overall instructions for exp 3a
+   var overall_instructions_2 = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: 
+    `<p>In the second part of this experiment, you will see eight more pairs of doors one at a time.</p>
+    <p>For each set of doors, you will complete six trials.</p> 
+    <p>The first two trials will have some instructions and the four following trials will require you to answer questions.</p>
+    <p>Press any key to continue.</p>`
+   };
+
+   timeline.push(overall_instructions_2);
+
    // create an introduction trial
    var introduction_2 = {
      type: jsPsychHtmlKeyboardResponse,
@@ -337,8 +360,7 @@
    var instruction_2 =  {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: 
-    `<p>There will be a single trial and two follow-up questions in total.</p>
-    <p>Before you begin, you will have to answer a question on the next slide.</p>
+    `<p>Before you begin, you will have to answer a question on the next slide.</p>
     <p>You must answer it correctly to continue.</p>
     <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
     <p>Press any key to continue.</p>`
@@ -350,7 +372,7 @@
     var attention_check2 = {
       type: jsPsychHtmlButtonResponse,
       stimulus:
-      `<p>What objects are in front of the door?</p>`,
+      `<p>What is the only difference between the two exits?</p>`,
       choices: ac2_options,
       data: { block: 'exp3a', question: 'attention_check', object: current_trial_2['text'][0], correct_choice: ac2_options.indexOf(current_trial_2['text'][0]) },
       on_finish: function(data){
@@ -379,8 +401,8 @@
     type: jsPsychHtmlButtonResponse,
     stimulus: `<p>What do you think someone was trying to tell you about the door with ${current_trial_2['text'][0]}?</p>` +
       jsPsych.randomization.shuffle([
-        `<img src="${current_trial_2['images'][0]}" + width=300px + height=600px>`,
-        `<img src="${current_trial_2['images'][1]}" + width=300px + height=600px>`
+        `<img src="${current_trial_2['images'][0]}" style="height:500px">`,
+        `<img src="${current_trial_2['images'][1]}" style="height:500px">`
       ]).join(''),
     choices: [`"You <b>should</b> walk through the door with ${current_trial_2['text'][0]}"`,
     `"You <b>should not</b> walk through the door with ${current_trial_2['text'][0]}"`],
@@ -402,7 +424,7 @@
     prompt: `<p>Click on the door that requires more work to walk through.</p>`,
     choices: mc2_options.map(function(opt){
       if (opt === 'equal') { return 'Both doors are equally easy to walk through'; }
-      return `<img src="${opt}"+ width=300px + height=600px>`;
+      return `<img src="${opt}" style="height:500px">`;
     }),
     data: { block: 'exp3a', question: 'manipulation_check', object: current_trial_2['text'][0], choice_order: mc2_options.join(';'),
       correct_choice: mc2_options.indexOf(current_trial_2['correct_image'])},
@@ -421,8 +443,8 @@
     `<p>Think back to the door you chose as the one where someone was trying to tell you something.</p>
     <p>Do you think you would be able to walk through this door if you wanted to?</p>` +
       jsPsych.randomization.shuffle([
-        `<img src="${current_trial_2['images'][0]}" + width=300px + height=600px>`,
-        `<img src="${current_trial_2['images'][1]}" + width=300px + height=600px>`
+        `<img src="${current_trial_2['images'][0]}" style="height:500px">`,
+        `<img src="${current_trial_2['images'][1]}" style="height:500px">`
       ]).join(''),
     prompt: 
     `<p>press Y for Yes</p>
