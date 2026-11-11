@@ -2,7 +2,7 @@
 <html>
  <head>
    <!-- this is where we can load packages and files that we will use to help us build the experiment -->
-   <title>rt experiment</title>
+   <title>communicative goals from static scenes</title>
    <script src="https://unpkg.com/jspsych@8.0.0"></script>
    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.0.0"></script>
    <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@2.0.0"></script>
@@ -21,7 +21,7 @@
 
    var jsPsych = initJsPsych({
       on_finish: function() {
-        
+            window.location = "https://ucsd.sona-systems.com/webstudy_credit.aspx?experiment_id=3179&credit_token=a42fd6644c3840849a364971b6ee8706&survey_code="+sona_id;
       },
     extensions: [
       {
@@ -36,6 +36,9 @@
     ]
    }
   );
+
+  //get SONA ID
+  var sona_id = jsPsych.data.getURLVariable('id'); 
 
   var subject_id = jsPsych.randomization.randomID(10);
   jsPsych.data.addProperties({subject_id: subject_id});
