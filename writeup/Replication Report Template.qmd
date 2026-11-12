@@ -59,23 +59,27 @@ of an empty door and a door with an object placed directly in the middle of one 
 
 ### Procedure	
 
-  At the start of the experiment, participants will be asked to imagine leaving an office and encountering a pair of doors (the pair of doors in each trial will match the description as listed for each part of the experiment above). For the first part of the experiment, participants will complete eight sets of trials, each with a pair of images. For each set of images, they will be asked a series of multiple-choice questions: an attention-check (“What objects are in front of the doors?”), test trial (“Which door do you think someone was trying to tell you something?”), a manipulation check (“Which door requires more work to walk through?”) and lastly, an inclusion question (“Do you think you would be able to walk through this door if you wanted to?”). These methods will match the procedure from Experiment 2 of the paper. 
+  At the start of the experiment, participants will be asked to imagine leaving an office and encountering a pair of doors (the pair of doors in each trial will match the description as listed for each part of the experiment above). For the first part of the experiment, participants will complete eight sets of trials, each with a pair of images. For each set of images, they will be asked a series of multiple-choice questions: an attention-check (“What objects are in front of the doors?”), test trial (“Which door do you think someone was trying to tell you something?”), a manipulation check (“Which door requires more work to walk through?”) and lastly, an inclusion question (“Do you think you would be able to walk through this door if you wanted to?”). For the inclusion trial, we will only present a picture of the "low-cost door." Although this is a deviation from the original methods, we hope to minimize confusion for this trial. These methods will match the procedure from Experiment 2 of the paper. 
 
-  For the second part of the experiment, participants will complete eight more sets of trials, each with a pair of images. Participants will then answer: an attention-check (“What is the only difference between the two exits?”), test trial (“What do you think someone was trying to tell you about the door with the object?”; the options provided will be (a) “You should walk through the door with the object” and (b) “You should not walk through the door with the object”), manipulation-check (same as Exp 2), and an inclusion question (same as Exp 2). These methods are a shortened version of the procedure from Experiment 3a of the paper (only including the "low-cost" condition) to account for time constraints of running the replication on SONA.
+  For the second part of the experiment, participants will complete eight more sets of trials, each with a pair of images. Participants will then answer: an attention-check (“What is the only difference between the two exits?”), test trial (“What do you think someone was trying to tell you about the door with the object?”; the options provided will be (a) “You should walk through the door with the object” and (b) “You should not walk through the door with the object”), manipulation-check (same as Exp 2), and an inclusion question (same as Exp 2). For the inclusion trial, we will only present a picture of the "low-cost door." Although this is a deviation from the original methods, we hope to minimize confusion for this trial. These methods are a shortened version of the procedure from Experiment 3a of the paper (only including the "low-cost" condition) to account for time constraints of running the replication on SONA.
 
 ### Analysis Plan
 
   For the first part of the experiment (replication of Exp 2), trials in which participants fail the inclusion question will be excluded from the final dataset. For the second part of the experiment (replication of Exp 3a "low-cost" condition), trials in which participants fail either the inclusion question or the manipulation check will be excluded from the final dataset. The key analyses will be two-tailed binomial tests comparing participants' performance to chance (50%). We will also be conducting bootstrapped 95% CIs for these results.
-  For the data collected in the first part of the study (replicating Exp 2 from the paper), participants' responses will be coded as 0 (choosing the "no-cost" door as more communicative) or 1 (choosing the "low-cost" door as more communicative). Participants' performance will then be compared to chance using a two-tailed binomial test to analyze whether participants chose the "low-cost" door as more communicative compared to the "no-cost" door.
-  For the second part of the study (replicating the "low-cost" condition from Exp 3a), participants' responses will be coded as 0 (choosing the door with no object as the one to avoid) or 1 (choosing the door with the object in front as the one to avoid). Participants' performance will again be compared to chance using a two-tailed binomial test to analyze whether participants chose the "low-cost" door as the one that was being used to communicate to others that it should be avoided. 
-  Since we are not collecting new data for the "no-cost" condition, we will be comparing the the original data collected for that condition to the data we collect here. We will conduct a Fisher’s exact test comparing participants' performance in the two conditions to investigate whether participants inferences of avoiding the door with the object was higher in the "low-cost"
+  For the data collected in the first part of the study (replicating Exp 2 from the paper), participants' responses will be coded as 0 (choosing the "no-cost" door as more communicative) or 1 (choosing the "low-cost" door as more communicative). We will subset the data collected to measure their responses only to the first test trial (to match the number of trials in the original experiment). Participants' performance will then be compared to chance using a two-tailed binomial test to analyze whether participants chose the "low-cost" door as more communicative compared to the "no-cost" door.
+  We will also run an exploratory test to measure participants' responses across the first part of the study. We will calculate the proportion of test-trials where they chose the "low-cost" door as more communicative and run a one-sample t-test to compare their performance to chance.
+  For the second part of the study (replicating the "low-cost" condition from Exp 3a), participants' responses will be coded as 0 (choosing the door with no object as the one to avoid) or 1 (choosing the door with the object in front as the one to avoid). We will subset the data collected to measure their responses only to the first test trial (to match the number of trials in the original experiment). Participants' performance will again be compared to chance using a two-tailed binomial test to analyze whether participants chose the "low-cost" door as the one that was being used to communicate to others that it should be avoided. 
+  We will again run an exploratory test to measure participants' responses across this second part of the study. We will calculate the proportion of test-trials where they chose the door with the object in front as the one to avoid and run a one-sample t-test to compare their performance to chance.
+  Since we are not collecting new data for the "no-cost" condition, we will be comparing the the original data collected for that condition to the data we collect here in the first test trial of the second part of the study. We will conduct a Fisher’s exact test comparing participants' performance in the two conditions to investigate whether participants inferences of avoiding the door with the object was higher in the "low-cost"
 condition compared to the "no-cost" condition.
 
 
 ### Differences from Original Study
 
   The most important difference here is that the current project will  be combining the procedures from Experiment 2 and part of Experiment 3a. Therefore, the data will be collected from the same sample of participants instead of two different samples (as in the original set of studies). It is possible that there may be order effects: participants' performance in identifying a "low-cost" door as more communicative (replication of Exp 2) could affect their performance in the trials involving participants' identification of the communicative goal in "low-cost" situations (replication of Exp 3a). There could also be other differences in the results in our replication attempt of the "low-cost" condition of Experiment 3a due to fatigue. 
-  Although the original study was conducted over MTurk (possibly from a more diverse sample), the data for the replication project will be collected from SONA (from UCSD undergraduate students). For the most part, we will be following the same analysis plans conducted in the original set of studies. The only exception is that given that we will only be collecting data for the "low-cost" condition of Experiment 3a in our replication, we will compare the data from our replication project to the "no-cost" condition data collected in the original study. 
+  Another major difference here is that we will be having participants respond to all eight versions of test trials both when replicating Exp 2 and Exp 3a, compared to the one test trial run in the original studies. This is to account for the SONA study length requirements. This will also allow us to run a further exploratory test to examine our data. In addition to running a binomial test analyzing each participants' responses to the first test trial for each part of the experiment, we will run one-sample t-tests to analyze whether participants' proportion of responses for each eight set of trials differed from chance. 
+  We have further slightly modified the stimuli presented for the inclusion question. The original study included the question "Do you think you would be able to walk through this door if you wanted to?" with the pictures of both doors, which raises possible confusion about which door the question is referring to. To address this and keeping in mind that we plan to exclude participants specifically if they believe that they cannot physically walk through the "low-cost" door, we only included the picture of the low-cost door with this question.
+  Although the original study was conducted over MTurk (possibly from a more diverse sample), the data for the replication project will be collected from SONA (from UCSD undergraduate students). Aside from the exceptions listed above, we will be following the same analysis plans conducted in the original set of studies. The only other exception is that given that we will only be collecting data for the "low-cost" condition of Experiment 3a in our replication, we will compare the data from our replication project to the "no-cost" condition data collected in the original study. 
 
 ### Methods Addendum (Post Data Collection)
 
@@ -109,20 +113,71 @@ library(here)
 file_names <- dir("/Users/anlaha/Documents/PSY201B/GitHub/lopez-brau2023/data/pilot_a", full.names = TRUE) #where you have your files
 
 pilota <- do.call(rbind,lapply(file_names,read_csv))
+```
 
+```{r}
 #### Data exclusion / filtering
 pilota_mainqs = pilota %>%
   filter(question == "test" | question == "inclusion") %>%
-  select(subject_id, block, object, question,
-         response)
+  select(subject_id, block, object, question, correct)
+```
 
+```{r}
+## cleaning all test trials
 pilota_mainqs_wide = pilota_mainqs %>%
   pivot_wider(names_from = question,
-              values_from = response)
+              values_from = correct)
+
+##only including test from those who answered the inclusion question correctly
+pilota_pass = pilota_mainqs_wide %>%
+  filter(inclusion == TRUE)
 
 #### Prepare data for analysis - create columns etc.
-  
-  # The code below will rename the relevant columns (mainly participant ID, test, inclusion check) and code "0" for either the "no-cost" door (for questions from Exp 2) or the empty door (for questions from Exp 3a)
+##pivoting longer - each row is each test question + marked correct or not
+pilota_test = pilota_pass %>%
+  select(!inclusion) %>%
+  pivot_longer(cols = "test",
+               names_to = "TrialType",
+               values_to = "Correct")
+
+# code "1" for the "low-cost" door and "0" for the "no-cost" door (Exp 2) // code "1" for "should not walk through the door" and "0" for "should walk through the door" 
+pilota_test = pilota_test %>%
+  mutate(Response = ifelse(Correct == TRUE, "1", "0"))
+
+#dataframe for exp 2 questions
+pilota_exp2 = pilota_test %>%
+  filter(block == "exp2")
+
+#dataframe for exp 3 questions
+pilota_exp3a = pilota_test %>%
+  filter(block == "exp3a")
+```
+
+```{r}
+## cleaning for binomial tests - only the first test trial
+pilota_test1_qs = pilota_mainqs %>%
+  distinct(subject_id, block, question, 
+           .keep_all = TRUE)
+
+pilota_test1_wide = pilota_test1_qs %>%
+  pivot_wider(names_from = question,
+              values_from = correct)
+
+##only including test from those who answered the inclusion question correctly
+pilota_test1_pass = pilota_test1_wide %>%
+  filter(inclusion == TRUE)
+
+# code "1" for the "low-cost" door and "0" for the "no-cost" door (Exp 2) // code "1" for "should not walk through the door" and "0" for "should walk through the door" 
+pilota_test1 = pilota_test1_pass %>%
+  mutate(Response = ifelse(test == TRUE, "1", "0"))
+
+#exp 2 questions - only first test trial
+pilota_exp2_test1 = pilota_test1 %>%
+  filter(block == "exp2")
+
+#exp 3 questions
+pilota_exp3a_test1 = pilota_test1 %>%
+  filter(block == "exp3a")
 ```
 
 ### Confirmatory analysis
@@ -136,15 +191,44 @@ pilota_mainqs_wide = pilota_mainqs %>%
 
 ## Exp 2 questions: run binomial test comparing choices of "low-cost" door to chance
 ### compute bootstrapped 95% CIs
+```{r}
+pilota_exp2_test1_success = pilota_exp2_test1 %>%
+  filter(Response == "1") 
+  
+success_exp2_test1 = as.numeric(count(pilota_exp2_test1_success))
+exp2_test1_sample = as.numeric(nrow(pilota_exp2_test1))
+
+exp2_binom = binom.test(success_exp2_test1, exp2_test1_sample, p = 0.5,
+           alternative = "two.sided")
+print(exp2_binom)
+```
 
 ## Exp 3a "low-cost" questions: run binomial test comparing choices of door with object to chance
 ### compute bootstrapped 95% CIs
+```{r}
+pilota_exp3a_test1_success = pilota_exp3a_test1 %>%
+  filter(Response == "1") 
+  
+success_exp3a_test1 = as.numeric(count(pilota_exp3a_test1_success))
+exp3a_test1_sample = as.numeric(nrow(pilota_exp3a_test1))
 
+exp3a_binom = binom.test(success_exp3a_test1, exp3a_test1_sample, p = 0.5,
+           alternative = "two.sided")
+print(exp3a_binom)
+```
 ## Exp 3a comparison: run Fisher's test comparing choices of door with object in replicated "low-cost" to original "no-cost"
+```{r}
+# matrix with success on replication low-cost vs original no-cost
+pilota_exp3a_comp <- matrix(c(success_exp3a_test1, 48, (exp3a_test1_sample - success_exp3a_test1), 32), 
+                      nrow = 2,
+                      dimnames = list(Condition = c("Low-cost", "No-cost"),
+                                      Outcome = c("Success", "Failure")))
 
-
+# Fisher's exact test
+fisher.test(pilota_exp3a_comp)
+```
 ### Exploratory analyses
-
+##t-tests
 Any follow-up analyses desired (not required).  
 
 ## Discussion
