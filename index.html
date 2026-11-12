@@ -85,7 +85,7 @@
     among an array of stimuli. These stimuli will be taken directly from or closely adapted from studies that already exist in the
     published psychological literature. Stimuli will include, e.g., pictures of objects and human faces, audio and video clips, short
     text passages, etc. None of the stimuli will be disturbing, threatening, or offensive. The online and in-person experiments described 
-    n this protocol will take no more than 30 minutes. An example game you might play would be to click on an image on the screen that 
+    in this protocol will take no more than 30 minutes. An example game you might play would be to click on an image on the screen that 
     matches a word you hear being said out loud. Your total expected time commitment for this study is between 5-30 minutes, and is specified
     in the study description. </p>
     <p>Your participation in this study is completely voluntary and you can withdraw at any time. Choosing not to participate or withdrawing
@@ -99,8 +99,9 @@
     <p> If you have questions about this project or if you have a research-related problem, you may contact the researcher(s),  Dr. 
     Bria Long, brlong@ucsd.edu. If you have any questions concerning your rights as a research subject, you may contact the UC San 
     Diego Office of IRB Administration at irb@ucsd.edu or 858-246-4777.</p>
-    <p>By participating in this research you are indicating that you are at least 18 years old, have read this consent form, and 
-    agree to participate in this research study. Please keep this consent form for your records. Press any key to begin the study.`
+    <p><b>By participating in this research you are indicating that you are at least 18 years old, have read this consent form, and 
+    agree to participate in this research study. Please keep this consent form for your records.</b> <i>Press any key to begin the study.</i></p>
+    `
   };
 
   //add consent trial to timeline
@@ -113,7 +114,7 @@
     `<p>In the first part of this experiment, you will see eight pairs of doors one at a time.</p>
     <p>For each set of doors, you will complete six trials.</p> 
     <p>The first two trials will have some instructions and the four following trials will require you to answer questions.</p>
-    <p>Press any key to continue.</p>`
+    <p><i>Press any key to continue.</i></p>`
    };
 
    timeline.push(overall_instructions);
@@ -178,17 +179,17 @@
      stimulus: 
      `<p>Imagine you work in an office with two identical exits.</p>
      <p>One day, as you're leaving, you see <b>${current_trial['text'][0]}</b> in front of the exits.</p>
-     <p>Click any key to continue.</p>`
+     <p><i>Press any key to continue.</i></p>`
    };
 
    // create an instruction trial
    var instruction =  {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: 
-    `<p>Before you begin, you will have to answer a question on the next slide.</p>
+    `<p>You will have to answer a question on the next slide.</p>
     <p>You must answer it correctly to continue.</p>
     <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
-    <p>Press any key to continue.</p>`
+    <p><i>Press any key to continue.</i></p>`
    };
    
 
@@ -229,7 +230,7 @@
    var test_trial = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `<p>Which door do you think someone was trying to tell you something?</p>`,
-    prompt: "Click on the door that you think someone was trying to tell you something.",
+    prompt: "<i>Click on the door that you think someone was trying to tell you something.</i>",
     choices: [`<img src="${test_images[0]}" style="height:500px">`, 
     `<img src="${test_images[1]}" style="height:500px">`],
     data: { block: 'exp2', question: 'test', object: current_trial['text'][0], choice_order: test_images.join(';'),
@@ -247,7 +248,7 @@
    var manipulation_check = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `<p>Which door requires more work to walk through?</p>`,
-    prompt: `<p>Click on the door that requires more work to walk through.</p>`,
+    prompt: `<p><i>Click on the door that requires more work to walk through.</i></p>`,
     choices: mc_options.map(function(opt){
       if (opt === 'equal') { return 'Both doors are equally easy to walk through'; }
       return `<img src="${opt}" style="height:500px">`;
@@ -266,12 +267,11 @@
    var inclusion = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: 
-    `<p>Think back to the door you chose as the one where someone was trying to tell you something.</p>
-    <p>Do you think you would be able to walk through this door if you wanted to?</p>` +
+    `<p>Do you think you would be able to walk through this door if you wanted to?</p>` +
         `<img src="${current_trial['images'][0]}" style="height:500px">`,
     prompt: 
-    `<p>press Y for Yes</p>
-    <p>press N for No</p>`,
+    `<p><i>press Y for Yes</i></p>
+    <p><i>press N for No</i></p>`,
     choices: ['Y', 'N'],
     data: { block: 'exp2', question: 'inclusion', object: current_trial['text'][0] }
    };
@@ -290,7 +290,8 @@
     `<p>In the second part of this experiment, you will see eight more pairs of doors one at a time.</p>
     <p>For each set of doors, you will complete six trials.</p> 
     <p>The first two trials will have some instructions and the four following trials will require you to answer questions.</p>
-    <p>Press any key to continue.</p>`
+    <p><i>Press any key to continue.</i></p>
+    `
    };
 
    timeline.push(overall_instructions_2);
@@ -352,9 +353,9 @@
    var introduction_2 = {
      type: jsPsychHtmlKeyboardResponse,
      stimulus: 
-     `<p>You're leaving an office building and find two identical exits. Near one of the exits is ${current_trial_2['text'][0]}.</p>
+     `<p>You're leaving an office building and find two identical exits. Near one of the exits is <b>${current_trial_2['text'][0]}</b>.</p>
      <p>You're not sure if someone wanted you to walk through this exit or walk through the other one instead.</p>
-     <p>Click any key to continue.</p>`
+     <p><i>Press any key to continue.</i></p>`
    };
 
    // create an instruction trial
@@ -364,7 +365,7 @@
     `<p>Before you begin, you will have to answer a question on the next slide.</p>
     <p>You must answer it correctly to continue.</p>
     <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
-    <p>Press any key to continue.</p>`
+    <p><i>Press any key to continue.</i></p>`
    };
 
    //adding attention check trial
@@ -400,7 +401,7 @@
    //adding test trial
    var test_trial_2 = {
     type: jsPsychHtmlButtonResponse,
-    stimulus: `<p>What do you think someone was trying to tell you about the door with ${current_trial_2['text'][0]}?</p>` +
+    stimulus: `<p>What do you think someone was trying to tell you about the door <b>with ${current_trial_2['text'][0]}?</b></p>` +
       jsPsych.randomization.shuffle([
         `<img src="${current_trial_2['images'][0]}" style="height:500px">`,
         `<img src="${current_trial_2['images'][1]}" style="height:500px">`
@@ -422,7 +423,7 @@
    var manipulation_check_2 = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `<p>Which door requires more work to walk through?</p>`,
-    prompt: `<p>Click on the door that requires more work to walk through.</p>`,
+    prompt: `<p><i>Click on the door that requires more work to walk through.</i></p>`,
     choices: mc2_options.map(function(opt){
       if (opt === 'equal') { return 'Both doors are equally easy to walk through'; }
       return `<img src="${opt}" style="height:500px">`;
@@ -441,12 +442,11 @@
    var inclusion_2 = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: 
-    `<p>Think back to the door you chose as the one where someone was trying to tell you something.</p>
-    <p>Do you think you would be able to walk through this door if you wanted to?</p>` +
+    `<p>Do you think you would be able to walk through this door if you wanted to?</p>` +
         `<img src="${current_trial_2['images'][0]}" style="height:500px">`,
     prompt: 
-    `<p>press Y for Yes</p>
-    <p>press N for No</p>`,
+    `<p><i>press Y for Yes</i></p>
+    <p><i>press N for No</i></p>`,
     choices: ['Y', 'N'],
     data: { block: 'exp3a', question: 'inclusion', object: current_trial_2['text'][0] }
    };
@@ -463,8 +463,10 @@
     stimulus: `<p>Thank you for participating in the experiment. We are conducting research on reasoning. The current experiment is an attempted replication of the 
       published paper, 'People can use the placement of objects to infer communicative goals' by Lopez-Brau & Jara-Ettinger, 2023. In this experiment, you were 
       presented with two options and had to figure out which option another person wanted you to choose. The goal of this experiement is to investigate how humans 
-      infer the communicative meaning of objects from static scenes. If you have any remaining questions about this experiment, please reach out to the primary 
-      researcher (Anushka Laha: anlaha@ucsd.edu) or the supervisor Dr. Bria Long (brlong@ucsd.edu). Press any key to finish.</p>`
+      infer the communicative meaning of objects from static scenes.</p>
+      <p>If you have any remaining questions about this experiment, please reach out to the primary researcher, Anushka Laha (anlaha@ucsd.edu) or the supervisor, 
+        Dr. Bria Long (brlong@ucsd.edu). <b>Important: make sure to press a key to finish the experiment and save your data to ensure you receive credit for participating
+        in this study. You should be redirected to the SONA website.</b></p>`
   };
   
   //add debrief trial to timeline
