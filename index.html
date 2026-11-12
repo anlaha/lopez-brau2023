@@ -270,8 +270,8 @@
     `<p>Do you think you would be able to walk through this door if you wanted to?</p>` +
         `<img src="${current_trial['images'][0]}" style="height:500px">`,
     prompt: 
-    `<p><i>press Y for Yes</i></p>
-    <p><i>press N for No</i></p>`,
+    `<p><i>press y for Yes</i></p>
+    <p><i>press n for No</i></p>`,
     choices: ['y', 'n'],
     data: { block: 'exp2', question: 'inclusion', object: current_trial['text'][0], correct_choice: 'y'},
       on_finish: function(data){
@@ -448,8 +448,8 @@
     `<p>Do you think you would be able to walk through this door if you wanted to?</p>` +
         `<img src="${current_trial_2['images'][0]}" style="height:500px">`,
     prompt: 
-    `<p><i>press Y for Yes</i></p>
-    <p><i>press N for No</i></p>`,
+    `<p><i>press y for Yes</i></p>
+    <p><i>press n for No</i></p>`,
     choices: ['y', 'n'],
     data: { block: 'exp3a', question: 'inclusion', object: current_trial_2['text'][0] , correct_choice: 'y'},
       on_finish: function(data){
