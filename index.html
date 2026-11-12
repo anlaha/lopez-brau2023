@@ -106,6 +106,18 @@
   //add consent trial to timeline
   timeline.push(consent);
 
+  //create trial with overall instructions for exp 2
+   var overall_instructions = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: 
+    `<p>In the first part of this experiment, you will see eight pairs of doors one at a time.</p>
+    <p>For each set of doors, you will complete six trials.</p> 
+    <p>The first two trials will have some instructions and the four following trials will require you to answer questions.</p>
+    <p>Press any key to continue.</p>`
+   };
+
+   timeline.push(overall_instructions);
+
 
 //replication of Exp 2
 
@@ -160,24 +172,12 @@
    //cycle through all trials in the current block
    var current_trial = shuffled_test_stimuli[i];
 
-  //create trial with overall instructions for exp 2
-   var overall_instructions = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: 
-    `<p>In the first part of this experiment, you will see eight pairs of doors one at a time.</p>
-    <p>For each set of doors, you will complete six trials.</p> 
-    <p>The first two trials will have some instructions and the four following trials will require you to answer questions.</p>
-    <p>Press any key to continue.</p>`
-   };
-
-   timeline.push(overall_instructions);
-
    // create an introduction trial
    var introduction = {
      type: jsPsychHtmlKeyboardResponse,
      stimulus: 
      `<p>Imagine you work in an office with two identical exits.</p>
-     <p>One day, as you're leaving, you see ${current_trial['text'][0]} in front of the exits.</p>
+     <p>One day, as you're leaving, you see <b>${current_trial['text'][0]}</b> in front of the exits.</p>
      <p>Click any key to continue.</p>`
    };
 
@@ -268,10 +268,7 @@
     stimulus: 
     `<p>Think back to the door you chose as the one where someone was trying to tell you something.</p>
     <p>Do you think you would be able to walk through this door if you wanted to?</p>` +
-      jsPsych.randomization.shuffle([
         `<img src="${current_trial['images'][0]}" style="height:500px">`,
-        `<img src="${current_trial['images'][1]}" style="height:500px">`
-      ]).join(''),
     prompt: 
     `<p>press Y for Yes</p>
     <p>press N for No</p>`,
@@ -285,6 +282,18 @@
    //end the for loop here
  }
 
+
+ //create trial with overall instructions for exp 3a
+   var overall_instructions_2 = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: 
+    `<p>In the second part of this experiment, you will see eight more pairs of doors one at a time.</p>
+    <p>For each set of doors, you will complete six trials.</p> 
+    <p>The first two trials will have some instructions and the four following trials will require you to answer questions.</p>
+    <p>Press any key to continue.</p>`
+   };
+
+   timeline.push(overall_instructions_2);
   //replication of Exp 3
 
 //add the test stimuli
@@ -331,24 +340,13 @@
    }
  ];
 
+
 //define a test block + randomize the trials
  var shuffled_test_stimuli_2 = jsPsych.randomization.repeat(test_stimuli_2,1);
 
   for (let i = 0; i < shuffled_test_stimuli_2.length; i++) {
    //cycle through all trials in the current block
    var current_trial_2 = shuffled_test_stimuli_2[i];
-
-   //create trial with overall instructions for exp 3a
-   var overall_instructions_2 = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: 
-    `<p>In the second part of this experiment, you will see eight more pairs of doors one at a time.</p>
-    <p>For each set of doors, you will complete six trials.</p> 
-    <p>The first two trials will have some instructions and the four following trials will require you to answer questions.</p>
-    <p>Press any key to continue.</p>`
-   };
-
-   timeline.push(overall_instructions_2);
 
    // create an introduction trial
    var introduction_2 = {
@@ -445,10 +443,7 @@
     stimulus: 
     `<p>Think back to the door you chose as the one where someone was trying to tell you something.</p>
     <p>Do you think you would be able to walk through this door if you wanted to?</p>` +
-      jsPsych.randomization.shuffle([
         `<img src="${current_trial_2['images'][0]}" style="height:500px">`,
-        `<img src="${current_trial_2['images'][1]}" style="height:500px">`
-      ]).join(''),
     prompt: 
     `<p>press Y for Yes</p>
     <p>press N for No</p>`,
