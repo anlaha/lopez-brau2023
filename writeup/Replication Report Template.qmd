@@ -106,12 +106,19 @@ library(here)
 
 ```{r}
 #### Import data
+file_names <- dir("/Users/anlaha/Documents/PSY201B/GitHub/lopez-brau2023/data/pilot_a", full.names = TRUE) #where you have your files
 
+pilota <- do.call(rbind,lapply(file_names,read_csv))
 
 #### Data exclusion / filtering
+pilota_mainqs = pilota %>%
+  filter(question == "test" | question == "inclusion") %>%
+  select(subject_id, block, object, question,
+         response)
 
-
-# The code below will exclude trial data from participants that said they couldn't walk through one of the doors
+pilota_mainqs_wide = pilota_mainqs %>%
+  pivot_wider(names_from = question,
+              values_from = response)
 
 #### Prepare data for analysis - create columns etc.
   
