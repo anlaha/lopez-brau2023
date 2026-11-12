@@ -272,8 +272,11 @@
     prompt: 
     `<p><i>press Y for Yes</i></p>
     <p><i>press N for No</i></p>`,
-    choices: ['Y', 'N'],
-    data: { block: 'exp2', question: 'inclusion', object: current_trial['text'][0] }
+    choices: ['y', 'n'],
+    data: { block: 'exp2', question: 'inclusion', object: current_trial['text'][0], correct_choice: 'y'},
+      on_finish: function(data){
+        data.correct = (data.response === data.correct_choice);
+     }
    };
    
    //add inclusion trial to timeline
@@ -448,7 +451,10 @@
     `<p><i>press Y for Yes</i></p>
     <p><i>press N for No</i></p>`,
     choices: ['Y', 'N'],
-    data: { block: 'exp3a', question: 'inclusion', object: current_trial_2['text'][0] }
+    data: { block: 'exp3a', question: 'inclusion', object: current_trial_2['text'][0] , correct_choice: 'y'},
+      on_finish: function(data){
+        data.correct = (data.response === data.correct_choice);
+     }
    };
    
    //add inclusion trial to timeline
