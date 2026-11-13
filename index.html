@@ -464,6 +464,16 @@
    //end the for loop here
  }
 
+ //adding an AI check
+  var ai_check = {
+      type: jsPsychSurveyText,
+      questions: [
+        {prompt: 'What did you think this experiment was about?'}
+      ] 
+    };
+
+  timeline.push(ai_check);
+
  //debrief 
  var debrief = {
     type: jsPsychHtmlKeyboardResponse,
@@ -478,16 +488,6 @@
   
   //add debrief trial to timeline
   timeline.push(debrief);
-
-  //adding an AI check
-  var ai_check = {
-      type: jsPsychSurveyText,
-      questions: [
-        {prompt: 'What did you think this experiment was about?'}
-      ] 
-    };
-
-  timeline.push(ai_check);
 
  //start the experiment
   jsPsych.run(timeline);
