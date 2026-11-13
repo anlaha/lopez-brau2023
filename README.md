@@ -14,3 +14,5 @@ replicated here;
 (iii) writeup: which will contain a Quarto Markdown
 file and a rendered PDF file of the written report
 of this replication project
+
+Zenodo DOI: https://doi.org/10.5281/zenodo.24122753

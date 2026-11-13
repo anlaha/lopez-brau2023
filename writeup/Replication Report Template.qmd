@@ -110,7 +110,7 @@ library(here)
 
 ```{r}
 #### Import data
-file_names <- dir("/Users/anlaha/Documents/PSY201B/GitHub/lopez-brau2023/data/pilot_a", full.names = TRUE) #where you have your files
+file_names <- dir("/Users/anlaha/Documents/PSY201B/GitHub/lopez-brau2023/data/pilot_a", full.names = TRUE) 
 
 pilota <- do.call(rbind,lapply(file_names,read_csv))
 ```
@@ -118,7 +118,7 @@ pilota <- do.call(rbind,lapply(file_names,read_csv))
 ```{r}
 #### Data exclusion / filtering
 pilota_mainqs = pilota %>%
-  filter(question == "test" | question == "inclusion") %>%
+  filter(question == "test" | question == "inclusion" | (question == "manipulation_check" & block == "exp3a")) %>%
   select(subject_id, block, object, question, correct)
 ```
 
@@ -128,9 +128,10 @@ pilota_mainqs_wide = pilota_mainqs %>%
   pivot_wider(names_from = question,
               values_from = correct)
 
-##only including test from those who answered the inclusion question correctly
+##only including test from those who answered the inclusion question correctly and the manipulation check correctly for exp3a
 pilota_pass = pilota_mainqs_wide %>%
-  filter(inclusion == TRUE)
+  filter(inclusion == TRUE) %>%
+  filter(manipulation_check == TRUE | is.na(manipulation_check)) 
 
 #### Prepare data for analysis - create columns etc.
 ##pivoting longer - each row is each test question + marked correct or not
@@ -163,9 +164,10 @@ pilota_test1_wide = pilota_test1_qs %>%
   pivot_wider(names_from = question,
               values_from = correct)
 
-##only including test from those who answered the inclusion question correctly
+##only including test from those who answered the inclusion question correctly and the manipulation check correctly for exp3a
 pilota_test1_pass = pilota_test1_wide %>%
-  filter(inclusion == TRUE)
+  filter(inclusion == TRUE)  %>%
+  filter(manipulation_check == TRUE | is.na(manipulation_check)) 
 
 # code "1" for the "low-cost" door and "0" for the "no-cost" door (Exp 2) // code "1" for "should not walk through the door" and "0" for "should walk through the door" 
 pilota_test1 = pilota_test1_pass %>%
