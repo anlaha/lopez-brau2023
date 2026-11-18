@@ -37,7 +37,7 @@ pwr.p.test(h = h.2, power = 0.9)$n
 pwr.p.test(h = h.2, power = 0.95)$n
 
 #original effect size of Exp 3
-h.3 = ES.h(.8755, .5)
+h.3 = ES.h(.875, .5)
 
 #80% power to detect that effect
 pwr.p.test(h = h.3, power = 0.8)$n
@@ -48,7 +48,7 @@ pwr.p.test(h = h.2, n = 80)$power
 
 ### Planned Sample
 
-The planned sample size is 80 participants recruited through UCSD SONA (to match the sample size of the original experiments). We would have 99% power to detect the effect size from the original Experiment 2.
+The planned sample size is 80 participants recruited through UCSD SONA (to match the sample size of the original experiments). We would have 99% power to detect the effect size from the original Experiment 2. Because our replication of Exp 3a is not the primary goal of this project (given that results may be affected by order effects here that were not present in the original findings which collected separate samples for Exp 2 and 3a), we have based our sample size rationale on the effect size from Experiment 2. However, we note that the original Exp 3a had 80 participants in the low-cost condition which matches our sample size in this replication project.
 
 ### Materials
 
@@ -106,79 +106,111 @@ Data preparation following the analysis plan.
 library(lme4)
 library(tidyverse)
 library(here)
+library(boot)
 ```
 
 ```{r}
 #### Import data
-file_names <- dir("/Users/anlaha/Documents/PSY201B/GitHub/lopez-brau2023/data/pilot_a", full.names = TRUE) 
 
-pilota <- do.call(rbind,lapply(file_names,read_csv))
+#setting folder path
+data_folder <- here("data", "pilot_b")
+
+#making a list of file paths
+data_files <- list.files(path = data_folder, 
+                        pattern = "\\.csv$",
+                        full.names = TRUE)
+
+#reading the files into a list of dataframes
+data_list <- lapply(data_files, read.csv)
+
+#combining rows of all dataframes into full dataset
+pilotb <- do.call(rbind, data_list)
 ```
 
 ```{r}
 #### Data exclusion / filtering
-pilota_mainqs = pilota %>%
+
+#filtering rows including the test questions + exclusion criteria questions
+pilotb_mainqs = pilotb %>%
   filter(question == "test" | question == "inclusion" | (question == "manipulation_check" & block == "exp3a")) %>%
-  select(subject_id, block, object, question, correct)
+  select(subject_id, block, object, question, correct,
+         response, choice_order)
+
+#creating columns for each option for manipulation check questions, marking whether they chose the "equal" option, creating a combined correct column that now marks manipulation check as correct if they responded with the low cost door OR if they chose the equal option
+pilotb_mainqs_cleaned = pilotb_mainqs %>%
+  separate_wider_delim(cols = choice_order,
+                       delim = ";",
+                       names = c("choice0", "choice1", "choice2"),
+                       too_few = "align_start") %>%
+  mutate(response_equal = case_when(response == "0" & choice0 == "equal" ~ "equal",
+    response == "1" & choice1 == "equal" ~ "equal",
+    response == "2" & choice2 == "equal" ~ "equal",
+    TRUE ~ "other")) %>%
+  mutate(combined_correct = ifelse((question == "manipulation_check" & response_equal == "equal"), TRUE, correct)) 
 ```
 
 ```{r}
-## cleaning all test trials
-pilota_mainqs_wide = pilota_mainqs %>%
+## making the df wider so that response for each question is in a different column
+pilotb_mainqs_wide = pilotb_mainqs_cleaned %>%
+  select(!c(choice0, choice1, choice2, response_equal, correct, response)) %>%
   pivot_wider(names_from = question,
-              values_from = correct)
+              values_from = combined_correct)
 
-##only including test from those who answered the inclusion question correctly and the manipulation check correctly for exp3a
-pilota_pass = pilota_mainqs_wide %>%
-  filter(inclusion == TRUE) %>%
-  filter(manipulation_check == TRUE | is.na(manipulation_check)) 
+##only including rows for those who answered the inclusion question correctly in exp 2 + the inclusion and the manipulation check correctly for exp3a
+pilotb_pass = pilotb_mainqs_wide %>%
+  filter(inclusion == TRUE | inclusion == "true") %>%
+  filter(manipulation_check == TRUE | manipulation_check == "true" | is.na(manipulation_check)) 
 
-#### Prepare data for analysis - create columns etc.
-##pivoting longer - each row is each test question + marked correct or not
-pilota_test = pilota_pass %>%
-  select(!inclusion) %>%
+##pivoting longer so that each row is each test question + marked correct or not
+pilotb_test = pilotb_pass %>%
+  select(!c(inclusion, manipulation_check)) %>%
   pivot_longer(cols = "test",
                names_to = "TrialType",
                values_to = "Correct")
 
 # code "1" for the "low-cost" door and "0" for the "no-cost" door (Exp 2) // code "1" for "should not walk through the door" and "0" for "should walk through the door" 
-pilota_test = pilota_test %>%
-  mutate(Response = ifelse(Correct == TRUE, "1", "0"))
+pilotb_test = pilotb_test %>%
+  mutate(Response = ifelse((Correct == TRUE | Correct == "true"), "1", "0")) %>%
+  mutate(Response = as.numeric(Response))
 
 #dataframe for exp 2 questions
-pilota_exp2 = pilota_test %>%
+pilotb_exp2 = pilotb_test %>%
   filter(block == "exp2")
 
 #dataframe for exp 3 questions
-pilota_exp3a = pilota_test %>%
+pilotb_exp3a = pilotb_test %>%
   filter(block == "exp3a")
 ```
 
+## CONFIRMATORY TEST cleaning: only the first test trial
 ```{r}
-## cleaning for binomial tests - only the first test trial
-pilota_test1_qs = pilota_mainqs %>%
+## cleaning for binomial tests - only including the first test trial for each participant for each block (exp 2 and 3a) for each question (test, inclusion, manipulation_check)
+pilotb_test1_qs = pilotb_mainqs_cleaned %>%
   distinct(subject_id, block, question, 
            .keep_all = TRUE)
 
-pilota_test1_wide = pilota_test1_qs %>%
+## making the df wider so that response for each question is in a different column
+pilotb_test1_wide = pilotb_test1_qs %>%
+  select(!c(choice0, choice1, choice2, response_equal, correct, response)) %>%
   pivot_wider(names_from = question,
-              values_from = correct)
+              values_from = combined_correct)
 
-##only including test from those who answered the inclusion question correctly and the manipulation check correctly for exp3a
-pilota_test1_pass = pilota_test1_wide %>%
-  filter(inclusion == TRUE)  %>%
-  filter(manipulation_check == TRUE | is.na(manipulation_check)) 
+##only including rows for those who answered the inclusion question correctly in exp 2 + the inclusion and the manipulation check correctly for exp3a
+pilotb_test1_pass = pilotb_test1_wide %>%
+  filter(inclusion == TRUE | inclusion == "true")  %>%
+  filter(manipulation_check == TRUE | manipulation_check == "true" | is.na(manipulation_check)) 
 
 # code "1" for the "low-cost" door and "0" for the "no-cost" door (Exp 2) // code "1" for "should not walk through the door" and "0" for "should walk through the door" 
-pilota_test1 = pilota_test1_pass %>%
-  mutate(Response = ifelse(test == TRUE, "1", "0"))
+pilotb_test1 = pilotb_test1_pass %>%
+  mutate(Response = ifelse((test == TRUE | test == "true"), "1", "0")) %>%
+  mutate(Response = as.numeric(Response))
 
 #exp 2 questions - only first test trial
-pilota_exp2_test1 = pilota_test1 %>%
+pilotb_exp2_test1 = pilotb_test1 %>%
   filter(block == "exp2")
 
 #exp 3 questions
-pilota_exp3a_test1 = pilota_test1 %>%
+pilotb_exp3a_test1 = pilotb_test1 %>%
   filter(block == "exp3a")
 ```
 
@@ -192,42 +224,67 @@ pilota_exp3a_test1 = pilota_test1 %>%
 ## Exp 3a comparison: plot results from the replication vs original
 
 ## Exp 2 questions: run binomial test comparing choices of "low-cost" door to chance
-### compute bootstrapped 95% CIs
 ```{r}
-pilota_exp2_test1_success = pilota_exp2_test1 %>%
+pilotb_exp2_test1_success = pilotb_exp2_test1 %>%
   filter(Response == "1") 
   
-success_exp2_test1 = as.numeric(count(pilota_exp2_test1_success))
-exp2_test1_sample = as.numeric(nrow(pilota_exp2_test1))
+success_exp2_test1 = as.numeric(count(pilotb_exp2_test1_success))
+exp2_test1_sample = as.numeric(nrow(pilotb_exp2_test1))
 
 exp2_binom = binom.test(success_exp2_test1, exp2_test1_sample, p = 0.5,
            alternative = "two.sided")
 print(exp2_binom)
 ```
-
-## Exp 3a "low-cost" questions: run binomial test comparing choices of door with object to chance
 ### compute bootstrapped 95% CIs
 ```{r}
-pilota_exp3a_test1_success = pilota_exp3a_test1 %>%
+# Set up the bootstrap functions.
+compute_mean <- function(data, indices) {
+  mean(data[indices], na.rm = TRUE)
+}
+
+# Set the seed and compute the 95% bootstrapped CI.
+set.seed(123)
+compute_bootstrap_exp2 <- boot(data = pilotb_exp2_test1$Response, 
+                                statistic = compute_mean,
+                                R = 10000)
+
+bootstrap_exp3a = boot.ci(compute_bootstrap_exp2, type = c("perc", "bca"))
+print(bootstrap_exp3a)
+```
+
+## Exp 3a "low-cost" questions: run binomial test comparing choices of door with object to chance
+```{r}
+pilotb_exp3a_test1_success = pilotb_exp3a_test1 %>%
   filter(Response == "1") 
   
-success_exp3a_test1 = as.numeric(count(pilota_exp3a_test1_success))
-exp3a_test1_sample = as.numeric(nrow(pilota_exp3a_test1))
+success_exp3a_test1 = as.numeric(count(pilotb_exp3a_test1_success))
+exp3a_test1_sample = as.numeric(nrow(pilotb_exp3a_test1))
 
 exp3a_binom = binom.test(success_exp3a_test1, exp3a_test1_sample, p = 0.5,
            alternative = "two.sided")
 print(exp3a_binom)
 ```
+### compute bootstrapped 95% CIs
+```{r}
+# compute the 95% bootstrapped CI.
+compute_bootstrap_exp3a <- boot(data = pilotb_exp3a_test1$Response, 
+                                statistic = compute_mean,
+                                R = 10000)
+
+bootstrap_exp3a = boot.ci(compute_bootstrap_exp3a, type = c("perc", "bca"))
+print(bootstrap_exp3a)
+```
+
 ## Exp 3a comparison: run Fisher's test comparing choices of door with object in replicated "low-cost" to original "no-cost"
 ```{r}
 # matrix with success on replication low-cost vs original no-cost
-pilota_exp3a_comp <- matrix(c(success_exp3a_test1, 48, (exp3a_test1_sample - success_exp3a_test1), 32), 
+pilotb_exp3a_comp <- matrix(c(success_exp3a_test1, 48, (exp3a_test1_sample - success_exp3a_test1), 32), 
                       nrow = 2,
                       dimnames = list(Condition = c("Low-cost", "No-cost"),
                                       Outcome = c("Success", "Failure")))
 
 # Fisher's exact test
-fisher.test(pilota_exp3a_comp)
+fisher.test(pilotb_exp3a_comp)
 ```
 ### Exploratory analyses
 ##t-tests

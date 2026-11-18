@@ -257,7 +257,7 @@
     data: { block: 'exp2', question: 'manipulation_check', object: current_trial['text'][0], choice_order: mc_options.join(';'),
       correct_choice: mc_options.indexOf(current_trial['correct_image'])},
       on_finish: function(data){
-        data.correct = (data.response === data.correct_choice);
+        data.correct = (data.response === mc_options.indexOf(current_trial['correct_image']) || data.response === mc_options.indexOf('equal'));
       }
    };
 
@@ -469,7 +469,10 @@
       type: jsPsychSurveyText,
       questions: [
         {prompt: 'What did you think this experiment was about?'}
-      ] 
+      ],
+      on_finish: function(data){
+        data.response = data.response.Q0;
+     } 
     };
 
   timeline.push(ai_check);
