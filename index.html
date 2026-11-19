@@ -43,7 +43,29 @@
 
   var subject_id = jsPsych.randomization.randomID(10);
   jsPsych.data.addProperties({subject_id: subject_id});
-   
+
+  //balanced position lists: returns n_trials positions (0 = leftmost button) in a random order,
+  //with every position from 0 to n_positions-1 used as equally often as possible.
+  //e.g. balanced_positions(8, 3) uses each of the 3 positions 2 or 3 times across the 8 trials,
+  //and balanced_positions(8, 2) puts something on the left exactly 4 times and on the right 4 times.
+  //(shuffling each trial on its own does not guarantee this: by chance one position can come up 5 of 8 times.)
+  function balanced_positions(n_trials, n_positions) {
+    var positions = [];
+    while (positions.length < n_trials) {
+      var one_of_each = [];
+      for (let p = 0; p < n_positions; p++) { one_of_each.push(p); }
+      positions = positions.concat(jsPsych.randomization.shuffle(one_of_each));
+    }
+    //the last, partial set is a random subset, so which positions get the extra trials is random too
+    return jsPsych.randomization.shuffle(positions.slice(0, n_trials));
+  }
+
+  //looks up what was clicked: the option at button index data.response
+  function chosen_from(options, response) {
+    if (response === null || response === undefined) { return null; }
+    return options[response];
+  }
+
 
    //define preload trial
    var preload = {
@@ -170,6 +192,11 @@
 //define a test block + randomize the trials
  var shuffled_test_stimuli = jsPsych.randomization.repeat(test_stimuli,1);
 
+ //positions for this participant, one entry per door pair (see balanced_positions above)
+ var exp2_test_lowcost_pos = balanced_positions(shuffled_test_stimuli.length, 2); //test trial: low-cost door left (0) or right (1)
+ var exp2_mc_lowcost_first = balanced_positions(shuffled_test_stimuli.length, 2); //manipulation check: low-cost door before (0) or after (1) the other door
+ var exp2_mc_equal_pos = balanced_positions(shuffled_test_stimuli.length, 3);     //manipulation check: "equally easy" button 1st (0), 2nd (1) or 3rd (2)
+
   for (let i = 0; i < shuffled_test_stimuli.length; i++) {
    //cycle through all trials in the current block
    var current_trial = shuffled_test_stimuli[i];
@@ -202,8 +229,10 @@
       stimulus:
       `<p>What objects are in front of the door?</p>`,
       choices: ac_options,
-      data: { block: 'exp2', question: 'attention_check', object: current_trial['text'][0], correct_choice: ac_options.indexOf(current_trial['text'][0]) },
+      data: { block: 'exp2', question: 'attention_check', object: current_trial['text'][0], choice_order: ac_options.join(';'),
+        correct_choice: ac_options.indexOf(current_trial['text'][0]) },
       on_finish: function(data){
+        data.chosen_option = chosen_from(data.choice_order.split(';'), data.response); //the text they clicked
         data.correct = (data.response === data.correct_choice);
       }
     };
@@ -226,8 +255,10 @@
 
 
    //adding test trial
-   //shuffle the image paths first so the left/right order can be saved in the data
-   var test_images = jsPsych.randomization.shuffle([current_trial['images'][0], current_trial['images'][1]]);
+   //put the low-cost door on the left or right according to the balanced list, and save the order in the data
+   var lowcost_door = current_trial['correct_image'];
+   var other_door = current_trial['images'].filter(function(img){ return img !== lowcost_door; })[0];
+   var test_images = (exp2_test_lowcost_pos[i] === 0) ? [lowcost_door, other_door] : [other_door, lowcost_door];
    var test_trial = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `<p>Which door do you think someone was trying to tell you something?</p>`,
@@ -237,15 +268,18 @@
     data: { block: 'exp2', question: 'test', object: current_trial['text'][0], choice_order: test_images.join(';'),
       correct_choice: test_images.indexOf(current_trial['correct_image'])},
       on_finish: function(data){
+        data.chosen_image = chosen_from(data.choice_order.split(';'), data.response); //image path of the door they clicked
         data.correct = (data.response === data.correct_choice);
       }
    };
-   
+
    //add test trial to timeline
    timeline.push(test_trial);
 
    //adding manipulation check trial
-   var mc_options = jsPsych.randomization.shuffle([current_trial['images'][0], current_trial['images'][1], 'equal']);
+   //order the two doors, then insert "equal" at its balanced position (0 = leftmost, 2 = rightmost)
+   var mc_options = (exp2_mc_lowcost_first[i] === 0) ? [lowcost_door, other_door] : [other_door, lowcost_door];
+   mc_options.splice(exp2_mc_equal_pos[i], 0, 'equal');
    var manipulation_check = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `<p>Which door requires more work to walk through?</p>`,
@@ -255,8 +289,10 @@
       return `<img src="${opt}" style="height:500px">`;
     }),
     data: { block: 'exp2', question: 'manipulation_check', object: current_trial['text'][0], choice_order: mc_options.join(';'),
+      equal_position: mc_options.indexOf('equal'),
       correct_choice: mc_options.indexOf(current_trial['correct_image'])},
       on_finish: function(data){
+        data.chosen_image = chosen_from(data.choice_order.split(';'), data.response); //image path they clicked, or 'equal'
         data.correct = (data.response === data.correct_choice);
       }
    };
@@ -274,7 +310,7 @@
     `<p><i>press y for Yes</i></p>
     <p><i>press n for No</i></p>`,
     choices: ['y', 'n'],
-    data: { block: 'exp2', question: 'inclusion', object: current_trial['text'][0], correct_choice: 'y'},
+    data: { block: 'exp2', question: 'inclusion', object: current_trial['text'][0], image: current_trial['images'][0], correct_choice: 'y'},
       on_finish: function(data){
         data.correct = (data.response === data.correct_choice);
      }
@@ -349,6 +385,12 @@
 //define a test block + randomize the trials
  var shuffled_test_stimuli_2 = jsPsych.randomization.repeat(test_stimuli_2,1);
 
+ //positions for this participant, one entry per door pair (see balanced_positions above)
+ var exp3a_test_object_pos = balanced_positions(shuffled_test_stimuli_2.length, 2);  //test trial: door with the object shown on the left (0) or right (1)
+ var exp3a_test_should_first = balanced_positions(shuffled_test_stimuli_2.length, 2); //test trial: "should" button first (0) or "should not" button first (1)
+ var exp3a_mc_lowcost_first = balanced_positions(shuffled_test_stimuli_2.length, 2);  //manipulation check: object door before (0) or after (1) the other door
+ var exp3a_mc_equal_pos = balanced_positions(shuffled_test_stimuli_2.length, 3);      //manipulation check: "equally easy" button 1st (0), 2nd (1) or 3rd (2)
+
   for (let i = 0; i < shuffled_test_stimuli_2.length; i++) {
    //cycle through all trials in the current block
    var current_trial_2 = shuffled_test_stimuli_2[i];
@@ -380,8 +422,10 @@
       stimulus:
       `<p>What is the only difference between the two exits?</p>`,
       choices: ac2_options,
-      data: { block: 'exp3a', question: 'attention_check', object: current_trial_2['text'][0], correct_choice: ac2_options.indexOf(current_trial_2['text'][0]) },
+      data: { block: 'exp3a', question: 'attention_check', object: current_trial_2['text'][0], choice_order: ac2_options.join(';'),
+        correct_choice: ac2_options.indexOf(current_trial_2['text'][0]) },
       on_finish: function(data){
+        data.chosen_option = chosen_from(data.choice_order.split(';'), data.response); //the text they clicked
         data.correct = (data.response === data.correct_choice);
       }
     };
@@ -403,18 +447,28 @@
 
 
    //adding test trial
+   //the two doors are shown in the stimulus (not as buttons); put the object door left/right by the balanced list and save the order
+   var object_door_2 = current_trial_2['correct_image'];
+   var other_door_2 = current_trial_2['images'].filter(function(img){ return img !== object_door_2; })[0];
+   var test_images_2 = (exp3a_test_object_pos[i] === 0) ? [object_door_2, other_door_2] : [other_door_2, object_door_2];
+   //the two answer buttons also swap order across trials; 'should' / 'should_not' are the labels saved in the data
+   var test2_options = (exp3a_test_should_first[i] === 0) ? ['should', 'should_not'] : ['should_not', 'should'];
+   var test2_labels = {
+     should: `"You <b>should</b> walk through the door with ${current_trial_2['text'][0]}"`,
+     should_not: `"You <b>should not</b> walk through the door with ${current_trial_2['text'][0]}"`
+   };
    var test_trial_2 = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `<p>What do you think someone was trying to tell you about the door <b>with ${current_trial_2['text'][0]}?</b></p>` +
-      jsPsych.randomization.shuffle([
-        `<img src="${current_trial_2['images'][0]}" style="height:500px">`,
-        `<img src="${current_trial_2['images'][1]}" style="height:500px">`
-      ]).join(''),
-    choices: [`"You <b>should</b> walk through the door with ${current_trial_2['text'][0]}"`,
-    `"You <b>should not</b> walk through the door with ${current_trial_2['text'][0]}"`],
-    // choices are in a fixed order: 0 = "should", 1 = "should not" (avoid the door with the object)
-    data: { block: 'exp3a', question: 'test', object: current_trial_2['text'][0], correct_choice: 1 },
+      `<img src="${test_images_2[0]}" style="height:500px">` +
+      `<img src="${test_images_2[1]}" style="height:500px">`,
+    choices: test2_options.map(function(opt){ return test2_labels[opt]; }),
+    // correct_choice = button index of "should not" (avoid the door with the object)
+    data: { block: 'exp3a', question: 'test', object: current_trial_2['text'][0],
+      image_order: test_images_2.join(';'), object_door_position: test_images_2.indexOf(object_door_2),
+      choice_order: test2_options.join(';'), correct_choice: test2_options.indexOf('should_not') },
       on_finish: function(data){
+        data.chosen_option = chosen_from(data.choice_order.split(';'), data.response); //'should' or 'should_not'
         data.correct = (data.response === data.correct_choice);
       }
    };
@@ -423,7 +477,9 @@
    timeline.push(test_trial_2);
 
    //adding manipulation check trial
-   var mc2_options = jsPsych.randomization.shuffle([current_trial_2['images'][0], current_trial_2['images'][1], 'equal']);
+   //order the two doors, then insert "equal" at its balanced position (0 = leftmost, 2 = rightmost)
+   var mc2_options = (exp3a_mc_lowcost_first[i] === 0) ? [object_door_2, other_door_2] : [other_door_2, object_door_2];
+   mc2_options.splice(exp3a_mc_equal_pos[i], 0, 'equal');
    var manipulation_check_2 = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `<p>Which door requires more work to walk through?</p>`,
@@ -433,8 +489,10 @@
       return `<img src="${opt}" style="height:500px">`;
     }),
     data: { block: 'exp3a', question: 'manipulation_check', object: current_trial_2['text'][0], choice_order: mc2_options.join(';'),
+      equal_position: mc2_options.indexOf('equal'),
       correct_choice: mc2_options.indexOf(current_trial_2['correct_image'])},
       on_finish: function(data){
+        data.chosen_image = chosen_from(data.choice_order.split(';'), data.response); //image path they clicked, or 'equal'
         data.correct = (data.response === data.correct_choice);
       }
    };
@@ -452,7 +510,7 @@
     `<p><i>press y for Yes</i></p>
     <p><i>press n for No</i></p>`,
     choices: ['y', 'n'],
-    data: { block: 'exp3a', question: 'inclusion', object: current_trial_2['text'][0] , correct_choice: 'y'},
+    data: { block: 'exp3a', question: 'inclusion', object: current_trial_2['text'][0], image: current_trial_2['images'][0], correct_choice: 'y'},
       on_finish: function(data){
         data.correct = (data.response === data.correct_choice);
      }
