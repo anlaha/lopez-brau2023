@@ -107,6 +107,11 @@ library(lme4)
 library(tidyverse)
 library(here)
 library(boot)
+library(scales)
+library(ggthemes)
+library(ggtext)
+library(paletteer)
+library(assertthat)
 ```
 
 ```{r}
@@ -214,15 +219,278 @@ pilotb_exp3a_test1 = pilotb_test1 %>%
   filter(block == "exp3a")
 ```
 
+###Sanity Checks
+```{r}
+
+```
 ### Confirmatory analysis
 
 *Side-by-side graph with original graph is ideal here*
-## Plot results from the replicated Exp 2 questions
-## Exp 2 questions: plot results from the replication vs original
-## Plot results from the replicated Exp 3a "low-cost" questions
-## Plot results from the replicated Exp 3a "low-cost" questions VS the original Exp 3a "no-cost" questions
-## Exp 3a comparison: plot results from the replication vs original
+```{r}
+##setting theme for all graphs
+theme_set(theme_few() +
+            theme(text = element_text(size = 10)) +
+            theme(axis.text.x = element_blank())+
+            theme(axis.title.y = element_markdown()))
+```
+## key visualization: Exp 2 replication test question; only first test trial
+```{r fig.height=3, fig.width=4}
+ggplot(pilotb_exp2_test1,
+       mapping = aes(x = test,
+                     y = Response)) +
+  stat_summary(fun = "mean", 
+               geom = "bar",
+               color = "black",
+               fill = "skyblue",
+               width = 0.3) +
+  geom_hline(yintercept = 0.5, linetype = "dashed", linewidth = 0.25) +
+  scale_y_continuous(labels = percent_format(), limits = c(0, 1),
+                     expand = expansion(mult = c(0, 0.05))) +
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "errorbar",
+               width = 0.15) +
+  labs(title = "Replication of Experiment 2",
+       x = "Which door do you think someone was\ntrying to tell you something?",
+       y = "Percentage of participants that<br>endorsed the low-cost door") 
+```
+## replication vs original: Exp 2 questions, first trial only (replication) vs performance reported in the paper (original)
 
+## key visualization: Exp 3a low-cost replication test question; only first test trial
+```{r fig.height=3, fig.width=4}
+ggplot(pilotb_exp3a_test1,
+       mapping = aes(x = test,
+                     y = Response)) +
+  stat_summary(fun = "mean", 
+               geom = "bar",
+               color = "black",
+               fill = "skyblue",
+               width = 0.3) +
+  geom_hline(yintercept = 0.5, linetype = "dashed", linewidth = 0.25) +
+  scale_y_continuous(labels = percent_format(), limits = c(0, 1),
+                     expand = expansion(mult = c(0, 0.05))) +
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "errorbar",
+               width = 0.15) +
+  labs(title = "Replication of Experiment 3a\n(low-cost condition)",
+       x = "What do you think someone was trying\nto tell you about the door with the object?",
+       y = "Percentage of participants that<br>inferred that they **should not** go<br>through the door with the object") 
+```
+## replication vs original: Exp 3a comparison, results from the replication (low-cost) vs original (low-cost)
+
+## across condition replication vs original: results from the replicated Exp 3a "low-cost" questions VS the original Exp 3a "no-cost" questions
+
+##EXPLORATORY VISUALIZATIONS
+## Exp 2 replication; all test trials 
+```{r fig.height=3, fig.width=4}
+ggplot(pilotb_exp2,
+       mapping = aes(x = TrialType,
+                     y = Response)) +
+  stat_summary(fun = "mean", 
+               geom = "bar",
+               color = "black",
+               fill = "slateblue1",
+               width = 0.3) +
+  geom_hline(yintercept = 0.5, linetype = "dashed", linewidth = 0.25) +
+  scale_y_continuous(labels = percent_format(), limits = c(0, 1),
+                     expand = expansion(mult = c(0, 0.05))) +
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "errorbar",
+               width = 0.15)   +
+  labs(title = "Replication of Experiment 2 (all test trials)",
+       x = "Which door do you think someone was\ntrying to tell you something?",
+       y = "Percentage of participants that<br>endorsed the low-cost door")  
+```
+## Exp 3a replication; all test trials 
+```{r fig.height=3, fig.width=4}
+ggplot(pilotb_exp3a,
+       mapping = aes(x = TrialType,
+                     y = Response)) +
+  stat_summary(fun = "mean", 
+               geom = "bar",
+               color = "black",
+               fill = "slateblue1",
+               width = 0.3) +
+  geom_hline(yintercept = 0.5, linetype = "dashed", linewidth = 0.25) +
+  scale_y_continuous(labels = percent_format(), limits = c(0, 1),
+                     expand = expansion(mult = c(0, 0.05))) +
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "errorbar",
+               width = 0.15)   +
+  labs(title = "Replication of Experiment 3a:\nlow-cost condition (all test trials)",
+       x = "What do you think someone was trying\nto tell you about the door with the object?",
+       y = "Percentage of participants that<br>inferred that they **should not** go<br>through the door with the object")
+```
+
+## Exp 2 replication; all test trials faceted by object type
+```{r fig.height=3, fig.width=7}
+ggplot(pilotb_exp2,
+       mapping = aes(x = TrialType,
+                     y = Response,
+                     fill = factor(object))) +
+  facet_grid(. ~ object, labeller = label_wrap_gen(width = 12)) +
+  stat_summary(fun = "mean", 
+               geom = "bar",
+               color = "black",
+               width = 0.5) +
+  geom_hline(yintercept = 0.5, linetype = "dashed", linewidth = 0.25) +
+  scale_y_continuous(labels = percent_format(), limits = c(0, 1),
+                     expand = expansion(mult = c(0, 0.05))) +
+  scale_fill_paletteer_d("rcartocolor::Pastel") +
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "errorbar",
+               width = 0.15)   +
+  labs(title = "Replication of Experiment 2 (all test trials faceted by object type)",
+       x = "Which door do you think someone was trying to tell you something?",
+       y = "Percentage of participants that<br>endorsed the low-cost door")  +
+  theme(strip.background = element_rect(fill = "white",
+                                        color = "grey20",
+                                        linewidth = 0.25),
+        legend.position = "none")
+```
+##Exp 3a low-cost condition: all test trials faceted by object type
+```{r fig.height=3, fig.width=7}
+ggplot(pilotb_exp3a,
+       mapping = aes(x = TrialType,
+                     y = Response,
+                     fill = factor(object))) +
+  facet_grid(. ~ object, labeller = label_wrap_gen(width = 12)) +
+  stat_summary(fun = "mean", 
+               geom = "bar",
+               color = "black",
+               width = 0.5) +
+  geom_hline(yintercept = 0.5, linetype = "dashed", linewidth = 0.25) +
+  scale_y_continuous(labels = percent_format(), limits = c(0, 1),
+                     expand = expansion(mult = c(0, 0.05))) +
+  scale_fill_paletteer_d("rcartocolor::Pastel") +
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "errorbar",
+               width = 0.15) +
+  labs(title = "Replication of Experiment 3a: low-cost condition\n(all test trials faceted by object type)",
+       x = "What do you think someone was trying to tell you about the door with the object?",
+       y = "Percentage of participants that<br>inferred that they **should not** go<br>through the door with the object") +
+  theme(strip.background = element_rect(fill = "white",
+                                        color = "grey20",
+                                        linewidth = 0.25),
+        legend.position = "none")
+```
+##Exp 2: all trials (inclusion and test)
+```{r fig.height=3, fig.width=7}
+#bar graphs for overall performance for each question
+pilotb_mainqs_cleaned %>%
+  filter(block == "exp2") %>%
+  mutate(correct_numeric = ifelse((combined_correct == "true" | combined_correct == "TRUE"), "1", "0")) %>%
+  mutate(correct_numeric = as.numeric(correct_numeric)) %>%
+  ggplot(aes(x = question,
+             y = correct_numeric,
+             fill = question)) +
+  stat_summary(fun = "mean", 
+               geom = "bar",
+               color = "black",
+               width = 0.5) +
+  theme(axis.text.x = element_text(size = 12, color = "black"),
+        axis.title.x = element_blank(),
+        legend.position = "none") +
+  geom_hline(yintercept = 0.5, linetype = "dashed", linewidth = 0.25) +
+  scale_y_continuous(labels = percent_format(), limits = c(0, 1),
+                     expand = expansion(mult = c(0, 0.05))) +
+  scale_fill_paletteer_d("rcartocolor::Pastel") +
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "errorbar",
+               width = 0.15) +
+  scale_x_discrete(labels = c("inclusion" = "Do you think you would\nbe able to walk through the\n[low-cost] door if you wanted to?", 
+                              "test" = "Which door do you\nthink someone was trying\nto tell you something?")) +
+  labs(title = "Replication of Experiment 2 (all trials)",
+       y = "Percentage of participants that<br>endorsed the low-cost door") 
+
+
+#connecting lines between each subject ID to compare within subject performance to each question
+pilotb_mainqs_cleaned %>%
+  filter(block == "exp2") %>%
+  mutate(correct_numeric = ifelse((combined_correct == "true" | combined_correct == "TRUE"), "1", "0")) %>%
+  mutate(correct_numeric = as.numeric(correct_numeric)) %>%
+  ggplot(aes(x = question,
+             y = correct_numeric,
+             group = subject_id)) +
+  stat_summary(fun = "mean",
+               geom = "line",
+               alpha = 0.4, 
+               color = "lightblue") +
+  stat_summary(fun = "mean",
+               geom = "point",
+               color = "darkblue") +
+  theme(axis.text.x = element_text(size = 12, color = "black"),
+        axis.title.x = element_blank(),
+        legend.position = "none") +
+  geom_hline(yintercept = 0.5, linetype = "dashed", linewidth = 0.25) +
+  scale_y_continuous(labels = percent_format(), limits = c(0, 1),
+                     expand = expansion(mult = c(0, 0.05))) +
+  scale_x_discrete(labels = c("inclusion" = "Do you think you would\nbe able to walk through the\n[low-cost] door if you wanted to?", 
+                              "test" = "Which door do you\nthink someone was trying\nto tell you something?")) +
+  labs(title = "Replication of Experiment 2 (participants' performance on the inclusion trial\nconnected to performance on the test trial)",
+       y = "Percentage of participants that<br>endorsed the low-cost door")
+```
+
+##Exp 3a low-cost condition: all trials (inclusion, manipulation check, and test)
+```{r fig.height=3, fig.width=7}
+#bar graphs for overall performance for each question
+pilotb_mainqs_cleaned %>%
+  filter(block == "exp3a") %>%
+  mutate(correct_numeric = ifelse((combined_correct == "true" | combined_correct == "TRUE"), "1", "0")) %>%
+  mutate(correct_numeric = as.numeric(correct_numeric)) %>%
+  ggplot(aes(x = question,
+             y = correct_numeric,
+             fill = question)) +
+  stat_summary(fun = "mean", 
+               geom = "bar",
+               color = "black",
+               width = 0.5) +
+  theme(axis.text.x = element_text(size = 12, color = "black"),
+        axis.title.x = element_blank(),
+        legend.position = "none") +
+  geom_hline(yintercept = 0.5, linetype = "dashed", linewidth = 0.25) +
+  scale_y_continuous(labels = percent_format(), limits = c(0, 1),
+                     expand = expansion(mult = c(0, 0.05))) +
+  scale_fill_paletteer_d("rcartocolor::Pastel") +
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "errorbar",
+               width = 0.15) +
+  scale_x_discrete(labels = c("inclusion" = "Do you think you\nwould be able to walk\nthrough the [low-cost] door\nif you wanted to?", 
+                              "manipulation_check" = "Which door requires\nmore work to\nwalk through?",
+                              "test" = "What do you think\nsomeone was trying to\n tell you about the\ndoor with the object?")) +
+  labs(title = "Replication of Experiment 3a (all trials)",
+       y = "Percentage of participants that<br>inferred that they **should not** go<br>through the door with the object") 
+
+
+#connecting lines between each subject ID to compare within subject performance to each question
+pilotb_mainqs_cleaned %>%
+  filter(block == "exp3a") %>%
+  mutate(correct_numeric = ifelse((combined_correct == "true" | combined_correct == "TRUE"), "1", "0")) %>%
+  mutate(correct_numeric = as.numeric(correct_numeric)) %>%
+  ggplot(aes(x = question,
+             y = correct_numeric,
+             group = subject_id)) +
+  stat_summary(fun = "mean",
+               geom = "line",
+               alpha = 0.4, 
+               color = "lightblue") +
+  stat_summary(fun = "mean",
+               geom = "point",
+               color = "darkblue") +
+  theme(axis.text.x = element_text(size = 12, color = "black"),
+        axis.title.x = element_blank(),
+        legend.position = "none") +
+  geom_hline(yintercept = 0.5, linetype = "dashed", linewidth = 0.25) +
+  scale_y_continuous(labels = percent_format(), limits = c(0, 1),
+                     expand = expansion(mult = c(0, 0.05))) +
+  scale_x_discrete(labels = c("inclusion" = "Do you think you\nwould be able to walk\nthrough the [low-cost] door\nif you wanted to?", 
+                              "manipulation_check" = "Which door requires\nmore work to\nwalk through?",
+                              "test" = "What do you think\nsomeone was trying to\n tell you about the\ndoor with the object?")) +
+  labs(title = "Replication of Experiment 3a (each participants' performance\n connected across trials)",
+       y = "Percentage of participants that<br>inferred that they **should not** go<br>through the door with the object") 
+```
+
+
+##ANALYSES
 ## Exp 2 questions: run binomial test comparing choices of "low-cost" door to chance
 ```{r}
 pilotb_exp2_test1_success = pilotb_exp2_test1 %>%
