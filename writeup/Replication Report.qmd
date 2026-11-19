@@ -396,7 +396,7 @@ ggplot(pilotb_exp3a,
         legend.position = "none")
 ```
 ##Exp 2: all trials (inclusion and test)
-```{r fig.height=3, fig.width=7}
+```{r fig.height=4, fig.width=7}
 #bar graphs for overall performance for each question
 pilotb_mainqs_cleaned %>%
   filter(block == "exp2") %>%
@@ -453,7 +453,7 @@ pilotb_mainqs_cleaned %>%
 ```
 
 ##Exp 3a low-cost condition: all trials (inclusion, manipulation check, and test)
-```{r fig.height=3, fig.width=7}
+```{r fig.height=4, fig.width=7}
 #bar graphs for overall performance for each question
 pilotb_mainqs_cleaned %>%
   filter(block == "exp3a") %>%
@@ -583,7 +583,9 @@ fisher.test(pilotb_exp3a_comp)
 pilotb_exp2_alltest = pilotb_exp2 %>%
   select(!Correct) %>%
   pivot_wider(names_from = object,
-              values_from = Response) %>%
+              values_from = Response) 
+
+pilotb_exp2_alltest = pilotb_exp2_alltest %>%
   mutate(Average_Response = rowMeans(pilotb_exp2_alltest[4:11], na.rm = TRUE))
 
 t.test(pilotb_exp2_alltest$Average_Response, mu = 0.5, alternative = "two.sided")
@@ -594,7 +596,9 @@ t.test(pilotb_exp2_alltest$Average_Response, mu = 0.5, alternative = "two.sided"
 pilotb_exp3a_alltest = pilotb_exp3a %>%
   select(!Correct) %>%
   pivot_wider(names_from = object,
-              values_from = Response) %>%
+              values_from = Response) 
+
+pilotb_exp3a_alltest = pilotb_exp3a_alltest %>%
   mutate(Average_Response = rowMeans(pilotb_exp3a_alltest[4:11], na.rm = TRUE))
 
 t.test(pilotb_exp3a_alltest$Average_Response, mu = 0.5, alternative = "two.sided")
