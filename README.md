@@ -20,3 +20,9 @@ The repository also contains an "index.html" file that hosts the experiment as
 presented to participants coded in JSPsych.
 
 Zenodo DOI: https://doi.org/10.5281/zenodo.24333028
+
+
+# REVIEW: I'd include a little guide here in README on how to rerun your analysis code so that someone 
+# who is naive to the repo/codebase can just follow your instructions and reproduce your main results!
+# Definitely include what is needed in order to run it as well (mainly the R packages the report loads,
+# like ggtext and paletteer, which I didn't have, and Quarto to render it)
