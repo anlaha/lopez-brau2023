@@ -1,0 +1,263 @@
+"success","timeout","failed_images","failed_audio","failed_video","trial_type","trial_index","plugin_version","time_elapsed","subject_id","rt","stimulus","response","block","question","object","correct_choice","correct","choice_order"
+"true","false","[]","[]","[]","preload","0","2.0.0","391","2hxmt9wxuk","","","","","","","","",""
+"","","","","","html-keyboard-response","1","2.0.0","3933","2hxmt9wxuk","3540","Welcome to the experiment. Press any key to begin.","k","","","","","",""
+"","","","","","html-keyboard-response","2","2.0.0","6211","2hxmt9wxuk","2276","<p>You are being invited to participate in a research study titled “Reproducibility of Psychological Science and Instruction.
+    This study is being done by Dr. Bria Long from UC San Diego and associated graduate students in Experimental Methods course. 
+    You were selected to participate in this study because you are an adult in the U.S. and have been a represented population in 
+    previous psychology studies. The purpose of this study is to better understand how well previously published studies in the 
+    psychological field replicate online and with different populations. Your participation in this research should last approximately 
+    5-30 minutes  If you agree to take part in this study, you may be asked to view a set of stimuli, including pictures, sounds, written text, 
+    or videos and then giving some responses via key-presses, verbally, or with paper-and-pencil. We may also observe your choices or preferences
+    among an array of stimuli. These stimuli will be taken directly from or closely adapted from studies that already exist in the
+    published psychological literature. Stimuli will include, e.g., pictures of objects and human faces, audio and video clips, short
+    text passages, etc. None of the stimuli will be disturbing, threatening, or offensive. The online and in-person experiments described 
+    in this protocol will take no more than 30 minutes. An example game you might play would be to click on an image on the screen that 
+    matches a word you hear being said out loud. Your total expected time commitment for this study is between 5-30 minutes, and is specified
+    in the study description. </p>
+    <p>Your participation in this study is completely voluntary and you can withdraw at any time. Choosing not to participate or withdrawing
+    will result in no penalty or loss of benefits to which you are entitled. You are free to skip any question that you choose. </p>
+    <p>We will not be asking for any personally identifying information, and we will handle responses as confidentially as possible. 
+    Your SONA IDs will never be tied to your responses on this survey. However, we cannot guarantee the confidentiality of information 
+    transmitted over the Internet. To minimize this risk, data containing anything that might be personally identifiable (e.g. Prolific IDs 
+    or IP addresses) will be encrypted on transfer and storage and will only be accessible to qualified lab personnel. We will be keeping
+    data collected as part of this experiment indefinitely. This anonymized data (containing neither Prolific IDs nor IP addresses)
+    may be shared with the scientific community or with other participants to be used as stimuli in future studies.</p>
+    <p> If you have questions about this project or if you have a research-related problem, you may contact the researcher(s),  Dr. 
+    Bria Long, brlong@ucsd.edu. If you have any questions concerning your rights as a research subject, you may contact the UC San 
+    Diego Office of IRB Administration at irb@ucsd.edu or 858-246-4777.</p>
+    <p><b>By participating in this research you are indicating that you are at least 18 years old, have read this consent form, and 
+    agree to participate in this research study. Please keep this consent form for your records.</b> <i>Press any key to begin the study.</i></p>
+    ","k","","","","","",""
+"","","","","","html-keyboard-response","3","2.0.0","6946","2hxmt9wxuk","732","<p>In the first part of this experiment, you will see eight pairs of doors one at a time.</p>
+    <p>For each set of doors, you will complete six trials.</p> 
+    <p>The first two trials will have some instructions and the four following trials will require you to answer questions.</p>
+    <p><i>Press any key to continue.</i></p>","k","","","","","",""
+"","","","","","html-keyboard-response","4","2.0.0","7418","2hxmt9wxuk","469","<p>Imagine you work in an office with two identical exits.</p>
+     <p>One day, as you're leaving, you see <b>a plant</b> in front of the exits.</p>
+     <p><i>Press any key to continue.</i></p>","k","","","","","",""
+"","","","","","html-keyboard-response","5","2.0.0","7841","2hxmt9wxuk","421","<p>You will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","k","","","","","",""
+"","","","","","html-button-response","6","2.0.0","10620","2hxmt9wxuk","2775","<p>What objects are in front of the door?</p>","1","exp2","attention_check","a plant","0","false",""
+"","","","","","html-keyboard-response","7","2.0.0","15093","2hxmt9wxuk","4472","<p>Imagine you work in an office with two identical exits.</p>
+     <p>One day, as you're leaving, you see <b>a plant</b> in front of the exits.</p>
+     <p><i>Press any key to continue.</i></p>","o","","","","","",""
+"","","","","","html-keyboard-response","8","2.0.0","16552","2hxmt9wxuk","1457","<p>You will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","i","","","","","",""
+"","","","","","html-button-response","9","2.0.0","18750","2hxmt9wxuk","2196","<p>What objects are in front of the door?</p>","0","exp2","attention_check","a plant","0","true",""
+"","","","","","html-button-response","10","2.0.0","22902","2hxmt9wxuk","4149","<p>Which door do you think someone was trying to tell you something?</p>","0","exp2","test","a plant","0","true","images/lowcost_plant.png;images/nocost_plant.png"
+"","","","","","html-button-response","11","2.0.0","25681","2hxmt9wxuk","2778","<p>Which door requires more work to walk through?</p>","0","exp2","manipulation_check","a plant","0","true","images/lowcost_plant.png;equal;images/nocost_plant.png"
+"","","","","","html-keyboard-response","12","2.0.0","37687","2hxmt9wxuk","12003","<p>Do you think you would be able to walk through this door if you wanted to?</p><img src=""images/lowcost_plant.png"" style=""height:500px"">","n","exp2","inclusion","a plant","y","false",""
+"","","","","","html-keyboard-response","13","2.0.0","91252","2hxmt9wxuk","53564","<p>Imagine you work in an office with two identical exits.</p>
+     <p>One day, as you're leaving, you see <b>some tape</b> in front of the exits.</p>
+     <p><i>Press any key to continue.</i></p>","k","","","","","",""
+"","","","","","html-keyboard-response","14","2.0.0","93060","2hxmt9wxuk","1807","<p>You will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","o","","","","","",""
+"","","","","","html-button-response","15","2.0.0","95501","2hxmt9wxuk","2438","<p>What objects are in front of the door?</p>","1","exp2","attention_check","some tape","3","false",""
+"","","","","","html-keyboard-response","16","2.0.0","97517","2hxmt9wxuk","2014","<p>Imagine you work in an office with two identical exits.</p>
+     <p>One day, as you're leaving, you see <b>some tape</b> in front of the exits.</p>
+     <p><i>Press any key to continue.</i></p>","m","","","","","",""
+"","","","","","html-keyboard-response","17","2.0.0","101782","2hxmt9wxuk","4264","<p>You will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","m","","","","","",""
+"","","","","","html-button-response","18","2.0.0","104632","2hxmt9wxuk","2849","<p>What objects are in front of the door?</p>","3","exp2","attention_check","some tape","3","true",""
+"","","","","","html-button-response","19","2.0.0","108015","2hxmt9wxuk","3381","<p>Which door do you think someone was trying to tell you something?</p>","1","exp2","test","some tape","1","true","images/nocost_tape.png;images/lowcost_tape.png"
+"","","","","","html-button-response","20","2.0.0","109950","2hxmt9wxuk","1932","<p>Which door requires more work to walk through?</p>","1","exp2","manipulation_check","some tape","1","true","equal;images/lowcost_tape.png;images/nocost_tape.png"
+"","","","","","html-keyboard-response","21","2.0.0","112606","2hxmt9wxuk","2654","<p>Do you think you would be able to walk through this door if you wanted to?</p><img src=""images/lowcost_tape.png"" style=""height:500px"">","n","exp2","inclusion","some tape","y","false",""
+"","","","","","html-keyboard-response","22","2.0.0","114655","2hxmt9wxuk","2046","<p>Imagine you work in an office with two identical exits.</p>
+     <p>One day, as you're leaving, you see <b>a pile of books</b> in front of the exits.</p>
+     <p><i>Press any key to continue.</i></p>","o","","","","","",""
+"","","","","","html-keyboard-response","23","2.0.0","116437","2hxmt9wxuk","1780","<p>You will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","j","","","","","",""
+"","","","","","html-button-response","24","2.0.0","118032","2hxmt9wxuk","1593","<p>What objects are in front of the door?</p>","2","exp2","attention_check","a pile of books","2","true",""
+"","","","","","html-button-response","25","2.0.0","121917","2hxmt9wxuk","3882","<p>Which door do you think someone was trying to tell you something?</p>","1","exp2","test","a pile of books","0","false","images/lowcost_books.png;images/nocost_books.png"
+"","","","","","html-button-response","26","2.0.0","127264","2hxmt9wxuk","5345","<p>Which door requires more work to walk through?</p>","0","exp2","manipulation_check","a pile of books","0","true","images/lowcost_books.png;equal;images/nocost_books.png"
+"","","","","","html-keyboard-response","27","2.0.0","130332","2hxmt9wxuk","3067","<p>Do you think you would be able to walk through this door if you wanted to?</p><img src=""images/lowcost_books.png"" style=""height:500px"">","y","exp2","inclusion","a pile of books","y","true",""
+"","","","","","html-keyboard-response","28","2.0.0","132266","2hxmt9wxuk","1930","<p>Imagine you work in an office with two identical exits.</p>
+     <p>One day, as you're leaving, you see <b>a fishbowl tied to a tack on the doorframe</b> in front of the exits.</p>
+     <p><i>Press any key to continue.</i></p>","i","","","","","",""
+"","","","","","html-keyboard-response","29","2.0.0","132840","2hxmt9wxuk","572","<p>You will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","i","","","","","",""
+"","","","","","html-button-response","30","2.0.0","134315","2hxmt9wxuk","1474","<p>What objects are in front of the door?</p>","3","exp2","attention_check","a fishbowl tied to a tack on the doorframe","3","true",""
+"","","","","","html-button-response","31","2.0.0","137198","2hxmt9wxuk","2881","<p>Which door do you think someone was trying to tell you something?</p>","0","exp2","test","a fishbowl tied to a tack on the doorframe","0","true","images/lowcost_fishbowl.png;images/nocost_fishbowl.png"
+"","","","","","html-button-response","32","2.0.0","139310","2hxmt9wxuk","2110","<p>Which door requires more work to walk through?</p>","0","exp2","manipulation_check","a fishbowl tied to a tack on the doorframe","0","true","images/lowcost_fishbowl.png;equal;images/nocost_fishbowl.png"
+"","","","","","html-keyboard-response","33","2.0.0","140578","2hxmt9wxuk","1266","<p>Do you think you would be able to walk through this door if you wanted to?</p><img src=""images/lowcost_fishbowl.png"" style=""height:500px"">","n","exp2","inclusion","a fishbowl tied to a tack on the doorframe","y","false",""
+"","","","","","html-keyboard-response","34","2.0.0","141502","2hxmt9wxuk","923","<p>Imagine you work in an office with two identical exits.</p>
+     <p>One day, as you're leaving, you see <b>a chair</b> in front of the exits.</p>
+     <p><i>Press any key to continue.</i></p>","j","","","","","",""
+"","","","","","html-keyboard-response","35","2.0.0","141505","2hxmt9wxuk","2","<p>You will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","h","","","","","",""
+"","","","","","html-button-response","36","2.0.0","143298","2hxmt9wxuk","1790","<p>What objects are in front of the door?</p>","0","exp2","attention_check","a chair","0","true",""
+"","","","","","html-button-response","37","2.0.0","145498","2hxmt9wxuk","2199","<p>Which door do you think someone was trying to tell you something?</p>","0","exp2","test","a chair","0","true","images/lowcost_chairs.png;images/nocost_chairs.png"
+"","","","","","html-button-response","38","2.0.0","148265","2hxmt9wxuk","2765","<p>Which door requires more work to walk through?</p>","0","exp2","manipulation_check","a chair","0","true","images/lowcost_chairs.png;images/nocost_chairs.png;equal"
+"","","","","","html-keyboard-response","39","2.0.0","149514","2hxmt9wxuk","1247","<p>Do you think you would be able to walk through this door if you wanted to?</p><img src=""images/lowcost_chairs.png"" style=""height:500px"">","n","exp2","inclusion","a chair","y","false",""
+"","","","","","html-keyboard-response","40","2.0.0","150338","2hxmt9wxuk","822","<p>Imagine you work in an office with two identical exits.</p>
+     <p>One day, as you're leaving, you see <b>a hat</b> in front of the exits.</p>
+     <p><i>Press any key to continue.</i></p>","h","","","","","",""
+"","","","","","html-keyboard-response","41","2.0.0","151060","2hxmt9wxuk","720","<p>You will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","h","","","","","",""
+"","","","","","html-button-response","42","2.0.0","153298","2hxmt9wxuk","2237","<p>What objects are in front of the door?</p>","1","exp2","attention_check","a hat","2","false",""
+"","","","","","html-keyboard-response","43","2.0.0","155411","2hxmt9wxuk","2112","<p>Imagine you work in an office with two identical exits.</p>
+     <p>One day, as you're leaving, you see <b>a hat</b> in front of the exits.</p>
+     <p><i>Press any key to continue.</i></p>","b","","","","","",""
+"","","","","","html-keyboard-response","44","2.0.0","156162","2hxmt9wxuk","750","<p>You will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","b","","","","","",""
+"","","","","","html-button-response","45","2.0.0","157047","2hxmt9wxuk","884","<p>What objects are in front of the door?</p>","2","exp2","attention_check","a hat","2","true",""
+"","","","","","html-button-response","46","2.0.0","160099","2hxmt9wxuk","3050","<p>Which door do you think someone was trying to tell you something?</p>","0","exp2","test","a hat","0","true","images/lowcost_hat.png;images/nocost_hat.png"
+"","","","","","html-button-response","47","2.0.0","162167","2hxmt9wxuk","2066","<p>Which door requires more work to walk through?</p>","2","exp2","manipulation_check","a hat","0","false","images/lowcost_hat.png;images/nocost_hat.png;equal"
+"","","","","","html-keyboard-response","48","2.0.0","163862","2hxmt9wxuk","1693","<p>Do you think you would be able to walk through this door if you wanted to?</p><img src=""images/lowcost_hat.png"" style=""height:500px"">","y","exp2","inclusion","a hat","y","true",""
+"","","","","","html-keyboard-response","49","2.0.0","164937","2hxmt9wxuk","1074","<p>Imagine you work in an office with two identical exits.</p>
+     <p>One day, as you're leaving, you see <b>a pile of cinderblocks</b> in front of the exits.</p>
+     <p><i>Press any key to continue.</i></p>","b","","","","","",""
+"","","","","","html-keyboard-response","50","2.0.0","165513","2hxmt9wxuk","574","<p>You will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","b","","","","","",""
+"","","","","","html-button-response","51","2.0.0","167216","2hxmt9wxuk","1700","<p>What objects are in front of the door?</p>","0","exp2","attention_check","a pile of cinderblocks","0","true",""
+"","","","","","html-button-response","52","2.0.0","168649","2hxmt9wxuk","1431","<p>Which door do you think someone was trying to tell you something?</p>","1","exp2","test","a pile of cinderblocks","1","true","images/nocost_cinderblocks.png;images/lowcost_cinderblocks.png"
+"","","","","","html-button-response","53","2.0.0","170114","2hxmt9wxuk","1463","<p>Which door requires more work to walk through?</p>","2","exp2","manipulation_check","a pile of cinderblocks","2","true","equal;images/nocost_cinderblocks.png;images/lowcost_cinderblocks.png"
+"","","","","","html-keyboard-response","54","2.0.0","171535","2hxmt9wxuk","1420","<p>Do you think you would be able to walk through this door if you wanted to?</p><img src=""images/lowcost_cinderblocks.png"" style=""height:500px"">","n","exp2","inclusion","a pile of cinderblocks","y","false",""
+"","","","","","html-keyboard-response","55","2.0.0","184906","2hxmt9wxuk","13370","<p>Imagine you work in an office with two identical exits.</p>
+     <p>One day, as you're leaving, you see <b>some metersticks</b> in front of the exits.</p>
+     <p><i>Press any key to continue.</i></p>","n","","","","","",""
+"","","","","","html-keyboard-response","56","2.0.0","185415","2hxmt9wxuk","508","<p>You will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","n","","","","","",""
+"","","","","","html-button-response","57","2.0.0","186814","2hxmt9wxuk","1397","<p>What objects are in front of the door?</p>","3","exp2","attention_check","some metersticks","3","true",""
+"","","","","","html-button-response","58","2.0.0","188296","2hxmt9wxuk","1480","<p>Which door do you think someone was trying to tell you something?</p>","1","exp2","test","some metersticks","1","true","images/nocost_metersticks.png;images/lowcost_metersticks.png"
+"","","","","","html-button-response","59","2.0.0","189181","2hxmt9wxuk","884","<p>Which door requires more work to walk through?</p>","0","exp2","manipulation_check","some metersticks","0","true","images/lowcost_metersticks.png;images/nocost_metersticks.png;equal"
+"","","","","","html-keyboard-response","60","2.0.0","190103","2hxmt9wxuk","920","<p>Do you think you would be able to walk through this door if you wanted to?</p><img src=""images/lowcost_metersticks.png"" style=""height:500px"">","n","exp2","inclusion","some metersticks","y","false",""
+"","","","","","html-keyboard-response","61","2.0.0","190924","2hxmt9wxuk","819","<p>In the second part of this experiment, you will see eight more pairs of doors one at a time.</p>
+    <p>For each set of doors, you will complete six trials.</p> 
+    <p>The first two trials will have some instructions and the four following trials will require you to answer questions.</p>
+    <p><i>Press any key to continue.</i></p>
+    ","h","","","","","",""
+"","","","","","html-keyboard-response","62","2.0.0","191815","2hxmt9wxuk","889","<p>You're leaving an office building and find two identical exits. Near one of the exits is <b>a pile of books</b>.</p>
+     <p>You're not sure if someone wanted you to walk through this exit or walk through the other one instead.</p>
+     <p><i>Press any key to continue.</i></p>","h","","","","","",""
+"","","","","","html-keyboard-response","63","2.0.0","192487","2hxmt9wxuk","671","<p>Before you begin, you will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","h","","","","","",""
+"","","","","","html-button-response","64","2.0.0","193781","2hxmt9wxuk","1292","<p>What is the only difference between the two exits?</p>","3","exp3a","attention_check","a pile of books","3","true",""
+"","","","","","html-button-response","65","2.0.0","198482","2hxmt9wxuk","4698","<p>What do you think someone was trying to tell you about the door <b>with a pile of books?</b></p><img src=""images/lowcost_books.png"" style=""height:500px""><img src=""images/open_door.png"" style=""height:500px"">","1","exp3a","test","a pile of books","1","true",""
+"","","","","","html-button-response","66","2.0.0","200114","2hxmt9wxuk","1629","<p>Which door requires more work to walk through?</p>","1","exp3a","manipulation_check","a pile of books","1","true","images/open_door.png;images/lowcost_books.png;equal"
+"","","","","","html-keyboard-response","67","2.0.0","201353","2hxmt9wxuk","1237","<p>Do you think you would be able to walk through this door if you wanted to?</p><img src=""images/lowcost_books.png"" style=""height:500px"">","n","exp3a","inclusion","a pile of books","y","false",""
+"","","","","","html-keyboard-response","68","2.0.0","565141","2hxmt9wxuk","363801","<p>You're leaving an office building and find two identical exits. Near one of the exits is <b>a plant</b>.</p>
+     <p>You're not sure if someone wanted you to walk through this exit or walk through the other one instead.</p>
+     <p><i>Press any key to continue.</i></p>","j","","","","","",""
+"","","","","","html-keyboard-response","69","2.0.0","565802","2hxmt9wxuk","659","<p>Before you begin, you will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","j","","","","","",""
+"","","","","","html-button-response","70","2.0.0","567225","2hxmt9wxuk","1421","<p>What is the only difference between the two exits?</p>","1","exp3a","attention_check","a plant","1","true",""
+"","","","","","html-button-response","71","2.0.0","570876","2hxmt9wxuk","3649","<p>What do you think someone was trying to tell you about the door <b>with a plant?</b></p><img src=""images/lowcost_plant.png"" style=""height:500px""><img src=""images/closed_door.png"" style=""height:500px"">","1","exp3a","test","a plant","1","true",""
+"","","","","","html-button-response","72","2.0.0","573616","2hxmt9wxuk","2738","<p>Which door requires more work to walk through?</p>","2","exp3a","manipulation_check","a plant","2","true","images/closed_door.png;equal;images/lowcost_plant.png"
+"","","","","","html-keyboard-response","73","2.0.0","575875","2hxmt9wxuk","2258","<p>Do you think you would be able to walk through this door if you wanted to?</p><img src=""images/lowcost_plant.png"" style=""height:500px"">","y","exp3a","inclusion","a plant","y","true",""
+"","","","","","html-keyboard-response","74","2.0.0","578083","2hxmt9wxuk","2206","<p>You're leaving an office building and find two identical exits. Near one of the exits is <b>some tape</b>.</p>
+     <p>You're not sure if someone wanted you to walk through this exit or walk through the other one instead.</p>
+     <p><i>Press any key to continue.</i></p>","h","","","","","",""
+"","","","","","html-keyboard-response","75","2.0.0","578732","2hxmt9wxuk","647","<p>Before you begin, you will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","h","","","","","",""
+"","","","","","html-button-response","76","2.0.0","580075","2hxmt9wxuk","1342","<p>What is the only difference between the two exits?</p>","3","exp3a","attention_check","some tape","1","false",""
+"","","","","","html-keyboard-response","77","2.0.0","580936","2hxmt9wxuk","859","<p>You're leaving an office building and find two identical exits. Near one of the exits is <b>some tape</b>.</p>
+     <p>You're not sure if someone wanted you to walk through this exit or walk through the other one instead.</p>
+     <p><i>Press any key to continue.</i></p>","g","","","","","",""
+"","","","","","html-keyboard-response","78","2.0.0","581679","2hxmt9wxuk","742","<p>Before you begin, you will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","g","","","","","",""
+"","","","","","html-button-response","79","2.0.0","582641","2hxmt9wxuk","961","<p>What is the only difference between the two exits?</p>","1","exp3a","attention_check","some tape","1","true",""
+"","","","","","html-button-response","80","2.0.0","585625","2hxmt9wxuk","2981","<p>What do you think someone was trying to tell you about the door <b>with some tape?</b></p><img src=""images/closed_door.png"" style=""height:500px""><img src=""images/lowcost_tape.png"" style=""height:500px"">","1","exp3a","test","some tape","1","true",""
+"","","","","","html-button-response","81","2.0.0","587275","2hxmt9wxuk","1649","<p>Which door requires more work to walk through?</p>","1","exp3a","manipulation_check","some tape","1","true","equal;images/lowcost_tape.png;images/closed_door.png"
+"","","","","","html-keyboard-response","82","2.0.0","588632","2hxmt9wxuk","1356","<p>Do you think you would be able to walk through this door if you wanted to?</p><img src=""images/lowcost_tape.png"" style=""height:500px"">","n","exp3a","inclusion","some tape","y","false",""
+"","","","","","html-keyboard-response","83","2.0.0","589434","2hxmt9wxuk","800","<p>You're leaving an office building and find two identical exits. Near one of the exits is <b>a pile of cinderblocks</b>.</p>
+     <p>You're not sure if someone wanted you to walk through this exit or walk through the other one instead.</p>
+     <p><i>Press any key to continue.</i></p>","j","","","","","",""
+"","","","","","html-keyboard-response","84","2.0.0","589962","2hxmt9wxuk","527","<p>Before you begin, you will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","j","","","","","",""
+"","","","","","html-button-response","85","2.0.0","591743","2hxmt9wxuk","1779","<p>What is the only difference between the two exits?</p>","1","exp3a","attention_check","a pile of cinderblocks","1","true",""
+"","","","","","html-button-response","86","2.0.0","594659","2hxmt9wxuk","2914","<p>What do you think someone was trying to tell you about the door <b>with a pile of cinderblocks?</b></p><img src=""images/lowcost_cinderblocks.png"" style=""height:500px""><img src=""images/open_door.png"" style=""height:500px"">","1","exp3a","test","a pile of cinderblocks","1","true",""
+"","","","","","html-button-response","87","2.0.0","612809","2hxmt9wxuk","18149","<p>Which door requires more work to walk through?</p>","2","exp3a","manipulation_check","a pile of cinderblocks","2","true","images/open_door.png;equal;images/lowcost_cinderblocks.png"
+"","","","","","html-keyboard-response","88","2.0.0","614244","2hxmt9wxuk","1434","<p>Do you think you would be able to walk through this door if you wanted to?</p><img src=""images/lowcost_cinderblocks.png"" style=""height:500px"">","n","exp3a","inclusion","a pile of cinderblocks","y","false",""
+"","","","","","html-keyboard-response","89","2.0.0","615321","2hxmt9wxuk","1075","<p>You're leaving an office building and find two identical exits. Near one of the exits is <b>a hat</b>.</p>
+     <p>You're not sure if someone wanted you to walk through this exit or walk through the other one instead.</p>
+     <p><i>Press any key to continue.</i></p>","h","","","","","",""
+"","","","","","html-keyboard-response","90","2.0.0","615967","2hxmt9wxuk","645","<p>Before you begin, you will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","g","","","","","",""
+"","","","","","html-button-response","91","2.0.0","617357","2hxmt9wxuk","1389","<p>What is the only difference between the two exits?</p>","2","exp3a","attention_check","a hat","2","true",""
+"","","","","","html-button-response","92","2.0.0","622147","2hxmt9wxuk","4789","<p>What do you think someone was trying to tell you about the door <b>with a hat?</b></p><img src=""images/closed_door.png"" style=""height:500px""><img src=""images/lowcost_hat.png"" style=""height:500px"">","1","exp3a","test","a hat","1","true",""
+"","","","","","html-button-response","93","2.0.0","624324","2hxmt9wxuk","2176","<p>Which door requires more work to walk through?</p>","0","exp3a","manipulation_check","a hat","0","true","images/lowcost_hat.png;images/closed_door.png;equal"
+"","","","","","html-keyboard-response","94","2.0.0","625514","2hxmt9wxuk","1189","<p>Do you think you would be able to walk through this door if you wanted to?</p><img src=""images/lowcost_hat.png"" style=""height:500px"">","n","exp3a","inclusion","a hat","y","false",""
+"","","","","","html-keyboard-response","95","2.0.0","626486","2hxmt9wxuk","969","<p>You're leaving an office building and find two identical exits. Near one of the exits is <b>a chair</b>.</p>
+     <p>You're not sure if someone wanted you to walk through this exit or walk through the other one instead.</p>
+     <p><i>Press any key to continue.</i></p>","h","","","","","",""
+"","","","","","html-keyboard-response","96","2.0.0","627052","2hxmt9wxuk","565","<p>Before you begin, you will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","g","","","","","",""
+"","","","","","html-button-response","97","2.0.0","628042","2hxmt9wxuk","988","<p>What is the only difference between the two exits?</p>","1","exp3a","attention_check","a chair","1","true",""
+"","","","","","html-button-response","98","2.0.0","631376","2hxmt9wxuk","3332","<p>What do you think someone was trying to tell you about the door <b>with a chair?</b></p><img src=""images/lowcost_chairs.png"" style=""height:500px""><img src=""images/open_door.png"" style=""height:500px"">","1","exp3a","test","a chair","1","true",""
+"","","","","","html-button-response","99","2.0.0","632257","2hxmt9wxuk","880","<p>Which door requires more work to walk through?</p>","1","exp3a","manipulation_check","a chair","1","true","images/open_door.png;images/lowcost_chairs.png;equal"
+"","","","","","html-keyboard-response","100","2.0.0","633195","2hxmt9wxuk","937","<p>Do you think you would be able to walk through this door if you wanted to?</p><img src=""images/lowcost_chairs.png"" style=""height:500px"">","n","exp3a","inclusion","a chair","y","false",""
+"","","","","","html-keyboard-response","101","2.0.0","634016","2hxmt9wxuk","819","<p>You're leaving an office building and find two identical exits. Near one of the exits is <b>some metersticks</b>.</p>
+     <p>You're not sure if someone wanted you to walk through this exit or walk through the other one instead.</p>
+     <p><i>Press any key to continue.</i></p>","h","","","","","",""
+"","","","","","html-keyboard-response","102","2.0.0","634607","2hxmt9wxuk","590","<p>Before you begin, you will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","h","","","","","",""
+"","","","","","html-button-response","103","2.0.0","638960","2hxmt9wxuk","4351","<p>What is the only difference between the two exits?</p>","1","exp3a","attention_check","some metersticks","2","false",""
+"","","","","","html-keyboard-response","104","2.0.0","640055","2hxmt9wxuk","1094","<p>You're leaving an office building and find two identical exits. Near one of the exits is <b>some metersticks</b>.</p>
+     <p>You're not sure if someone wanted you to walk through this exit or walk through the other one instead.</p>
+     <p><i>Press any key to continue.</i></p>","b","","","","","",""
+"","","","","","html-keyboard-response","105","2.0.0","640478","2hxmt9wxuk","421","<p>Before you begin, you will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","b","","","","","",""
+"","","","","","html-button-response","106","2.0.0","641276","2hxmt9wxuk","797","<p>What is the only difference between the two exits?</p>","2","exp3a","attention_check","some metersticks","2","true",""
+"","","","","","html-button-response","107","2.0.0","644441","2hxmt9wxuk","3163","<p>What do you think someone was trying to tell you about the door <b>with some metersticks?</b></p><img src=""images/open_door.png"" style=""height:500px""><img src=""images/lowcost_metersticks.png"" style=""height:500px"">","1","exp3a","test","some metersticks","1","true",""
+"","","","","","html-button-response","108","2.0.0","645457","2hxmt9wxuk","1016","<p>Which door requires more work to walk through?</p>","2","exp3a","manipulation_check","some metersticks","2","true","equal;images/open_door.png;images/lowcost_metersticks.png"
+"","","","","","html-keyboard-response","109","2.0.0","646520","2hxmt9wxuk","1061","<p>Do you think you would be able to walk through this door if you wanted to?</p><img src=""images/lowcost_metersticks.png"" style=""height:500px"">","n","exp3a","inclusion","some metersticks","y","false",""
+"","","","","","html-keyboard-response","110","2.0.0","647986","2hxmt9wxuk","1464","<p>You're leaving an office building and find two identical exits. Near one of the exits is <b>a fishbowl tied to a tack on the doorframe</b>.</p>
+     <p>You're not sure if someone wanted you to walk through this exit or walk through the other one instead.</p>
+     <p><i>Press any key to continue.</i></p>","n","","","","","",""
+"","","","","","html-keyboard-response","111","2.0.0","648520","2hxmt9wxuk","533","<p>Before you begin, you will have to answer a question on the next slide.</p>
+    <p>You must answer it correctly to continue.</p>
+    <p>If you fail to answer it correctly, you will be sent back to reread the introduction.</p>
+    <p><i>Press any key to continue.</i></p>","n","","","","","",""
+"","","","","","html-button-response","112","2.0.0","650324","2hxmt9wxuk","1802","<p>What is the only difference between the two exits?</p>","1","exp3a","attention_check","a fishbowl tied to a tack on the doorframe","1","true",""
+"","","","","","html-button-response","113","2.0.0","652007","2hxmt9wxuk","1682","<p>What do you think someone was trying to tell you about the door <b>with a fishbowl tied to a tack on the doorframe?</b></p><img src=""images/lowcost_fishbowl.png"" style=""height:500px""><img src=""images/closed_door.png"" style=""height:500px"">","1","exp3a","test","a fishbowl tied to a tack on the doorframe","1","true",""
+"","","","","","html-button-response","114","2.0.0","653124","2hxmt9wxuk","1116","<p>Which door requires more work to walk through?</p>","0","exp3a","manipulation_check","a fishbowl tied to a tack on the doorframe","0","true","images/lowcost_fishbowl.png;equal;images/closed_door.png"
+"","","","","","html-keyboard-response","115","2.0.0","654039","2hxmt9wxuk","914","<p>Do you think you would be able to walk through this door if you wanted to?</p><img src=""images/lowcost_fishbowl.png"" style=""height:500px"">","n","exp3a","inclusion","a fishbowl tied to a tack on the doorframe","y","false",""
+"","","","","","survey-text","116","null","659327","2hxmt9wxuk","5256","","{""Q0"":""social cues""}","","","","","",""
+"","","","","","html-keyboard-response","117","2.0.0","661166","2hxmt9wxuk","1838","<p>Thank you for participating in the experiment. We are conducting research on reasoning. The current experiment is an attempted replication of the 
+      published paper, 'People can use the placement of objects to infer communicative goals' by Lopez-Brau & Jara-Ettinger, 2023. In this experiment, you were 
+      presented with two options and had to figure out which option another person wanted you to choose. The goal of this experiement is to investigate how humans 
+      infer the communicative meaning of objects from static scenes.</p>
+      <p>If you have any remaining questions about this experiment, please reach out to the primary researcher, Anushka Laha (anlaha@ucsd.edu) or the supervisor, 
+        Dr. Bria Long (brlong@ucsd.edu). <b>Important: make sure to press a key to finish the experiment and save your data to ensure you receive credit for participating
+        in this study. You should be redirected to the SONA website.</b></p>","s","","","","","",""
