@@ -101,6 +101,7 @@ Data preparation following the analysis plan.
 	
 ```{r include=F}
 ### Data Preparation
+install.packages("renv")
 
 #### Load Relevant Libraries and Functions
 library(lme4)
@@ -118,7 +119,7 @@ library(assertthat)
 #### Import data
 
 #setting folder path
-data_folder <- here("data", "pilot_b")
+data_folder <- here("data", "alldata")
 
 #making a list of file paths
 data_files <- list.files(path = data_folder, 
@@ -129,20 +130,23 @@ data_files <- list.files(path = data_folder,
 data_list <- lapply(data_files, read.csv)
 
 #combining rows of all dataframes into full dataset
-pilotb <- do.call(rbind, data_list)
+alldata <- do.call(rbind, data_list)
 ```
 
 ```{r}
 #### Data exclusion / filtering
 
 #filtering rows including the test questions + exclusion criteria questions
-pilotb_mainqs = pilotb %>%
+alldata_mainqs = alldata %>%
   filter(question == "test" | question == "inclusion" | (question == "manipulation_check" & block == "exp3a")) %>%
   select(subject_id, block, object, question, correct,
          response, choice_order)
 
+#checking that the correct number of rows / questions are included in the above df
+# assert_that(nrow(alldata_mainqs) %% 40 == 0)
+
 #creating columns for each option for manipulation check questions, marking whether they chose the "equal" option, creating a combined correct column that now marks manipulation check as correct if they responded with the low cost door OR if they chose the equal option
-pilotb_mainqs_cleaned = pilotb_mainqs %>%
+alldata_mainqs_cleaned = alldata_mainqs %>%
   separate_wider_delim(cols = choice_order,
                        delim = ";",
                        names = c("choice0", "choice1", "choice2"),
@@ -156,94 +160,94 @@ pilotb_mainqs_cleaned = pilotb_mainqs %>%
 
 ```{r}
 ## making the df wider so that response for each question is in a different column
-pilotb_mainqs_wide = pilotb_mainqs_cleaned %>%
+alldata_mainqs_wide = alldata_mainqs_cleaned %>%
   select(!c(choice0, choice1, choice2, response_equal, correct, response)) %>%
   pivot_wider(names_from = question,
               values_from = combined_correct)
 
 ##only including rows for those who answered the inclusion question correctly in exp 2 + the inclusion and the manipulation check correctly for exp3a
-pilotb_pass = pilotb_mainqs_wide %>%
+alldata_pass = alldata_mainqs_wide %>%
   filter(inclusion == TRUE | inclusion == "true") %>%
   filter(manipulation_check == TRUE | manipulation_check == "true" | is.na(manipulation_check)) 
 
 ##pivoting longer so that each row is each test question + marked correct or not
-pilotb_test = pilotb_pass %>%
+alldata_test = alldata_pass %>%
   select(!c(inclusion, manipulation_check)) %>%
   pivot_longer(cols = "test",
                names_to = "TrialType",
                values_to = "Correct")
 
 # code "1" for the "low-cost" door and "0" for the "no-cost" door (Exp 2) // code "1" for "should not walk through the door" and "0" for "should walk through the door" 
-pilotb_test = pilotb_test %>%
+alldata_test = alldata_test %>%
   mutate(Response = ifelse((Correct == TRUE | Correct == "true"), "1", "0")) %>%
   mutate(Response = as.numeric(Response))
 
 #dataframe for exp 2 questions
-pilotb_exp2 = pilotb_test %>%
+alldata_exp2 = alldata_test %>%
   filter(block == "exp2")
 
 #dataframe for exp 3 questions
-pilotb_exp3a = pilotb_test %>%
+alldata_exp3a = alldata_test %>%
   filter(block == "exp3a")
 ```
 
 ## CONFIRMATORY TEST cleaning: only the first test trial
 ```{r}
 ## cleaning for binomial tests - only including the first test trial for each participant for each block (exp 2 and 3a) for each question (test, inclusion, manipulation_check)
-pilotb_test1_qs = pilotb_mainqs_cleaned %>%
+alldata_test1_qs = alldata_mainqs_cleaned %>%
   distinct(subject_id, block, question, 
            .keep_all = TRUE)
 
 ## making the df wider so that response for each question is in a different column
-pilotb_test1_wide = pilotb_test1_qs %>%
+alldata_test1_wide = alldata_test1_qs %>%
   select(!c(choice0, choice1, choice2, response_equal, correct, response)) %>%
   pivot_wider(names_from = question,
               values_from = combined_correct)
 
 ##only including rows for those who answered the inclusion question correctly in exp 2 + the inclusion and the manipulation check correctly for exp3a
-pilotb_test1_pass = pilotb_test1_wide %>%
+alldata_test1_pass = alldata_test1_wide %>%
   filter(inclusion == TRUE | inclusion == "true")  %>%
   filter(manipulation_check == TRUE | manipulation_check == "true" | is.na(manipulation_check)) 
 
 # code "1" for the "low-cost" door and "0" for the "no-cost" door (Exp 2) // code "1" for "should not walk through the door" and "0" for "should walk through the door" 
-pilotb_test1 = pilotb_test1_pass %>%
+alldata_test1 = alldata_test1_pass %>%
   mutate(Response = ifelse((test == TRUE | test == "true"), "1", "0")) %>%
   mutate(Response = as.numeric(Response))
 
 #exp 2 questions - only first test trial
-pilotb_exp2_test1 = pilotb_test1 %>%
+alldata_exp2_test1 = alldata_test1 %>%
   filter(block == "exp2")
 
 #exp 3 questions
-pilotb_exp3a_test1 = pilotb_test1 %>%
+alldata_exp3a_test1 = alldata_test1 %>%
   filter(block == "exp3a")
 ```
 
 ###Sanity Checks
 ```{r}
 ##Responses should only be coded as numeric zeroes or ones
-assert_that(is.numeric(pilotb_exp2_test1$Response) &&
-              all(pilotb_exp2_test1$Response %in% c(0, 1)))
-assert_that(is.numeric(pilotb_exp3a_test1$Response) &&
-              all(pilotb_exp3a_test1$Response %in% c(0, 1)))
+assert_that(is.numeric(alldata_exp2_test1$Response) &&
+              all(alldata_exp2_test1$Response %in% c(0, 1)))
+assert_that(is.numeric(alldata_exp3a_test1$Response) &&
+              all(alldata_exp3a_test1$Response %in% c(0, 1)))
 
-assert_that(is.numeric(pilotb_exp2$Response) &&
-              all(pilotb_exp2$Response %in% c(0, 1)))
-assert_that(is.numeric(pilotb_exp3a$Response) &&
-              all(pilotb_exp3a$Response %in% c(0, 1)))
+assert_that(is.numeric(alldata_exp2$Response) &&
+              all(alldata_exp2$Response %in% c(0, 1)))
+assert_that(is.numeric(alldata_exp3a$Response) &&
+              all(alldata_exp3a$Response %in% c(0, 1)))
 
 ##Rows in the cleaned dfs should always only include responses from those who passed the manipulation check (Exp 3a) and the inclusion (both Exp 2 and Exp 3a)
-assert_that(all(pilotb_test1_pass$manipulation_check == TRUE |
-                  pilotb_test1_pass$manipulation_check == "true" |
-                  is.na(pilotb_test1_pass$manipulation_check)) &&
-              all(pilotb_test1_pass$inclusion == TRUE |
-                    pilotb_test1_pass$inclusion == "true"))
+assert_that(all(alldata_test1_pass$manipulation_check == TRUE |
+                  alldata_test1_pass$manipulation_check == "true" |
+                  is.na(alldata_test1_pass$manipulation_check)) &&
+              all(alldata_test1_pass$inclusion == TRUE |
+                    alldata_test1_pass$inclusion == "true"))
 
-assert_that(all(pilotb_pass$manipulation_check == TRUE |
-                  pilotb_pass$manipulation_check == "true" |
-                  is.na(pilotb_pass$manipulation_check)) &&
-              all(pilotb_pass$inclusion == TRUE |
-                    pilotb_pass$inclusion == "true"))
+assert_that(all(alldata_pass$manipulation_check == TRUE |
+                  alldata_pass$manipulation_check == "true" |
+                  is.na(alldata_pass$manipulation_check)) &&
+              all(alldata_pass$inclusion == TRUE |
+                    alldata_pass$inclusion == "true"))
 ```
 ### Confirmatory analysis
 
@@ -257,8 +261,8 @@ theme_set(theme_few() +
 ```
 ## key visualization: Exp 2 replication test question; only first test trial
 ```{r fig.height=3, fig.width=4}
-ggplot(pilotb_exp2_test1,
-       mapping = aes(x = test,
+ggplot(alldata_exp2_test1,
+       mapping = aes(x = block,
                      y = Response)) +
   stat_summary(fun = "mean", 
                geom = "bar",
@@ -276,11 +280,41 @@ ggplot(pilotb_exp2_test1,
        y = "Percentage of participants that<br>endorsed the low-cost door") 
 ```
 ## replication vs original: Exp 2 questions, first trial only (replication) vs performance reported in the paper (original)
-
+```{r}
+#manually creating a df with the response rate reported in the paper for Exp 2
+original_exp2 = data.frame(Response = rep(c(1, 0), times = c(58, 22)),
+                                   block = "original")
+#adding all the rows from the original low cost data to the replicated lowcost data
+alldata_exp2_rep_og <- bind_rows(alldata_exp2_test1, original_exp2)
+```
+```{r fig.height=3, fig.width=4}
+ggplot(alldata_exp2_rep_og,
+       mapping = aes(x = block,
+                     y = Response,
+                     fill = block)) +
+  stat_summary(fun = "mean", 
+               geom = "bar",
+               color = "black",
+               width = 0.3) +
+  geom_hline(yintercept = 0.5, linetype = "dashed", linewidth = 0.25) +
+  scale_fill_manual(values = c("skyblue", "coral")) +
+  scale_y_continuous(labels = percent_format(), limits = c(0, 1),
+                     expand = expansion(mult = c(0, 0.05))) +
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "errorbar",
+               width = 0.15) +
+  labs(title = "Replication of Experiment 2 vs. \nOriginal Experiment 2",
+       x = "Dataset",
+       y = "Percentage of participants that<br>inferred that they **should not** go<br>through the door with the object") +
+  scale_x_discrete(labels = c("exp2" = "Replication",
+                              "original" = "Original")) +
+  theme(axis.text.x = element_text(color = "black"),
+        legend.position = "none")
+```
 ## key visualization: Exp 3a low-cost replication test question; only first test trial
 ```{r fig.height=3, fig.width=4}
-ggplot(pilotb_exp3a_test1,
-       mapping = aes(x = test,
+ggplot(alldata_exp3a_test1,
+       mapping = aes(x = block,
                      y = Response)) +
   stat_summary(fun = "mean", 
                geom = "bar",
@@ -298,13 +332,75 @@ ggplot(pilotb_exp3a_test1,
        y = "Percentage of participants that<br>inferred that they **should not** go<br>through the door with the object") 
 ```
 ## replication vs original: Exp 3a comparison, results from the replication (low-cost) vs original (low-cost)
+```{r}
+#manually creating a df with the response rate reported in the paper for the lowcost condition
+original_exp3a_lowcost = data.frame(Response = rep(c(1, 0), times = c(70, 10)),
+                                   block = "lowcost")
+#adding all the rows from the original low cost data to the replicated lowcost data
+alldata_exp3a_rep_og <- bind_rows(alldata_exp3a_test1, original_exp3a_lowcost)
+```
+```{r fig.height=3, fig.width=4}
+ggplot(alldata_exp3a_rep_og,
+       mapping = aes(x = block,
+                     y = Response,
+                     fill = block)) +
+  stat_summary(fun = "mean", 
+               geom = "bar",
+               color = "black",
+               width = 0.3) +
+  geom_hline(yintercept = 0.5, linetype = "dashed", linewidth = 0.25) +
+  scale_fill_manual(values = c("skyblue", "coral")) +
+  scale_y_continuous(labels = percent_format(), limits = c(0, 1),
+                     expand = expansion(mult = c(0, 0.05))) +
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "errorbar",
+               width = 0.15) +
+  labs(title = "Replication of Experiment 3a vs. \nOriginal Experiment 3a (low-cost only)",
+       x = "Dataset",
+       y = "Percentage of participants that<br>inferred that they **should not** go<br>through the door with the object") +
+  scale_x_discrete(labels = c("exp3a" = "Replication",
+                              "lowcost" = "Original")) +
+  theme(axis.text.x = element_text(color = "black"),
+        legend.position = "none")
+```
 
 ## across condition replication vs original: results from the replicated Exp 3a "low-cost" questions VS the original Exp 3a "no-cost" questions
+```{r}
+#manually creating a df with the response rate reported in the paper for the nocost condition
+original_exp3a_nocost = data.frame(Response = rep(c(1, 0), times = c(48, 32)),
+                                   block = "nocost")
+#adding all the rows from the original no cost data to the replicated lowcost data
+alldata_exp3a_comp <- bind_rows(alldata_exp3a_test1, original_exp3a_nocost)
+```
+```{r fig.height=3, fig.width=4}
+ggplot(alldata_exp3a_comp,
+       mapping = aes(x = block,
+                     y = Response,
+                     fill = block)) +
+  stat_summary(fun = "mean", 
+               geom = "bar",
+               color = "black",
+               width = 0.3) +
+  geom_hline(yintercept = 0.5, linetype = "dashed", linewidth = 0.25) +
+  scale_fill_manual(values = c("skyblue", "steelblue")) +
+  scale_y_continuous(labels = percent_format(), limits = c(0, 1),
+                     expand = expansion(mult = c(0, 0.05))) +
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "errorbar",
+               width = 0.15) +
+  labs(title = "Replication of Experiment 3a (low-cost)\nvs. Original Experiment 3a (no-cost)",
+       x = "Condition",
+       y = "Percentage of participants that<br>inferred that they **should not** go<br>through the door with the object") +
+  scale_x_discrete(labels = c("exp3a" = "Low-Cost",
+                              "nocost" = "No-Cost")) +
+  theme(axis.text.x = element_text(color = "black"),
+        legend.position = "none")
+```
 
 ##EXPLORATORY VISUALIZATIONS
 ## Exp 2 replication; all test trials 
 ```{r fig.height=3, fig.width=4}
-ggplot(pilotb_exp2,
+ggplot(alldata_exp2,
        mapping = aes(x = TrialType,
                      y = Response)) +
   stat_summary(fun = "mean", 
@@ -324,7 +420,7 @@ ggplot(pilotb_exp2,
 ```
 ## Exp 3a replication; all test trials 
 ```{r fig.height=3, fig.width=4}
-ggplot(pilotb_exp3a,
+ggplot(alldata_exp3a,
        mapping = aes(x = TrialType,
                      y = Response)) +
   stat_summary(fun = "mean", 
@@ -345,7 +441,7 @@ ggplot(pilotb_exp3a,
 
 ## Exp 2 replication; all test trials faceted by object type
 ```{r fig.height=3, fig.width=7}
-ggplot(pilotb_exp2,
+ggplot(alldata_exp2,
        mapping = aes(x = TrialType,
                      y = Response,
                      fill = factor(object))) +
@@ -371,7 +467,7 @@ ggplot(pilotb_exp2,
 ```
 ##Exp 3a low-cost condition: all test trials faceted by object type
 ```{r fig.height=3, fig.width=7}
-ggplot(pilotb_exp3a,
+ggplot(alldata_exp3a,
        mapping = aes(x = TrialType,
                      y = Response,
                      fill = factor(object))) +
@@ -398,7 +494,7 @@ ggplot(pilotb_exp3a,
 ##Exp 2: all trials (inclusion and test)
 ```{r fig.height=4, fig.width=7}
 #bar graphs for overall performance for each question
-pilotb_mainqs_cleaned %>%
+alldata_mainqs_cleaned %>%
   filter(block == "exp2") %>%
   mutate(correct_numeric = ifelse((combined_correct == "true" | combined_correct == "TRUE"), "1", "0")) %>%
   mutate(correct_numeric = as.numeric(correct_numeric)) %>%
@@ -426,7 +522,7 @@ pilotb_mainqs_cleaned %>%
 
 
 #connecting lines between each subject ID to compare within subject performance to each question
-pilotb_mainqs_cleaned %>%
+alldata_mainqs_cleaned %>%
   filter(block == "exp2") %>%
   mutate(correct_numeric = ifelse((combined_correct == "true" | combined_correct == "TRUE"), "1", "0")) %>%
   mutate(correct_numeric = as.numeric(correct_numeric)) %>%
@@ -455,7 +551,7 @@ pilotb_mainqs_cleaned %>%
 ##Exp 3a low-cost condition: all trials (inclusion, manipulation check, and test)
 ```{r fig.height=4, fig.width=7}
 #bar graphs for overall performance for each question
-pilotb_mainqs_cleaned %>%
+alldata_mainqs_cleaned %>%
   filter(block == "exp3a") %>%
   mutate(correct_numeric = ifelse((combined_correct == "true" | combined_correct == "TRUE"), "1", "0")) %>%
   mutate(correct_numeric = as.numeric(correct_numeric)) %>%
@@ -484,7 +580,7 @@ pilotb_mainqs_cleaned %>%
 
 
 #connecting lines between each subject ID to compare within subject performance to each question
-pilotb_mainqs_cleaned %>%
+alldata_mainqs_cleaned %>%
   filter(block == "exp3a") %>%
   mutate(correct_numeric = ifelse((combined_correct == "true" | combined_correct == "TRUE"), "1", "0")) %>%
   mutate(correct_numeric = as.numeric(correct_numeric)) %>%
@@ -515,11 +611,14 @@ pilotb_mainqs_cleaned %>%
 ##ANALYSES
 ## Exp 2 questions: run binomial test comparing choices of "low-cost" door to chance
 ```{r}
-pilotb_exp2_test1_success = pilotb_exp2_test1 %>%
+alldata_exp2_test1_success = alldata_exp2_test1 %>%
   filter(Response == "1") 
   
-success_exp2_test1 = as.numeric(count(pilotb_exp2_test1_success))
-exp2_test1_sample = as.numeric(nrow(pilotb_exp2_test1))
+success_exp2_test1 = as.numeric(count(alldata_exp2_test1_success))
+exp2_test1_sample = as.numeric(nrow(alldata_exp2_test1))
+
+#checking that full sample size is 80
+#assert_that(exp2_test1_sample == 80)
 
 exp2_binom = binom.test(success_exp2_test1, exp2_test1_sample, p = 0.5,
            alternative = "two.sided")
@@ -534,7 +633,7 @@ compute_mean <- function(data, indices) {
 
 # Set the seed and compute the 95% bootstrapped CI.
 set.seed(123)
-compute_bootstrap_exp2 <- boot(data = pilotb_exp2_test1$Response, 
+compute_bootstrap_exp2 <- boot(data = alldata_exp2_test1$Response, 
                                 statistic = compute_mean,
                                 R = 10000)
 
@@ -544,11 +643,14 @@ print(bootstrap_exp3a)
 
 ## Exp 3a "low-cost" questions: run binomial test comparing choices of door with object to chance
 ```{r}
-pilotb_exp3a_test1_success = pilotb_exp3a_test1 %>%
+alldata_exp3a_test1_success = alldata_exp3a_test1 %>%
   filter(Response == "1") 
   
-success_exp3a_test1 = as.numeric(count(pilotb_exp3a_test1_success))
-exp3a_test1_sample = as.numeric(nrow(pilotb_exp3a_test1))
+success_exp3a_test1 = as.numeric(count(alldata_exp3a_test1_success))
+exp3a_test1_sample = as.numeric(nrow(alldata_exp3a_test1))
+
+#checking that full sample size is 80
+#assert_that(exp3a_test1_sample == 80)
 
 exp3a_binom = binom.test(success_exp3a_test1, exp3a_test1_sample, p = 0.5,
            alternative = "two.sided")
@@ -557,7 +659,7 @@ print(exp3a_binom)
 ### compute bootstrapped 95% CIs
 ```{r}
 # compute the 95% bootstrapped CI.
-compute_bootstrap_exp3a <- boot(data = pilotb_exp3a_test1$Response, 
+compute_bootstrap_exp3a <- boot(data = alldata_exp3a_test1$Response, 
                                 statistic = compute_mean,
                                 R = 10000)
 
@@ -568,40 +670,40 @@ print(bootstrap_exp3a)
 ## Exp 3a comparison: run Fisher's test comparing choices of door with object in replicated "low-cost" to original "no-cost"
 ```{r}
 # matrix with success on replication low-cost vs original no-cost
-pilotb_exp3a_comp <- matrix(c(success_exp3a_test1, 48, (exp3a_test1_sample - success_exp3a_test1), 32), 
+alldata_exp3a_comp <- matrix(c(success_exp3a_test1, 48, (exp3a_test1_sample - success_exp3a_test1), 32), 
                       nrow = 2,
                       dimnames = list(Condition = c("Low-cost", "No-cost"),
                                       Outcome = c("Success", "Failure")))
 
 # Fisher's exact test
-fisher.test(pilotb_exp3a_comp)
+fisher.test(alldata_exp3a_comp)
 ```
 ### EXPLORATORY ANALYSES
 ## Exp 2: analyzing all eight test trials
 ```{r}
 #cleaning: one row for each subject + all eight responses -> new column with average responses 
-pilotb_exp2_alltest = pilotb_exp2 %>%
+alldata_exp2_alltest = alldata_exp2 %>%
   select(!Correct) %>%
   pivot_wider(names_from = object,
               values_from = Response) 
 
-pilotb_exp2_alltest = pilotb_exp2_alltest %>%
-  mutate(Average_Response = rowMeans(pilotb_exp2_alltest[4:11], na.rm = TRUE))
+alldata_exp2_alltest = alldata_exp2_alltest %>%
+  mutate(Average_Response = rowMeans(alldata_exp2_alltest[4:11], na.rm = TRUE))
 
-t.test(pilotb_exp2_alltest$Average_Response, mu = 0.5, alternative = "two.sided")
+t.test(alldata_exp2_alltest$Average_Response, mu = 0.5, alternative = "two.sided")
 ```
 ## Exp 3a: analyzing all eight test trials
 ```{r}
 #cleaning: one row for each subject + all eight responses -> new column with average responses 
-pilotb_exp3a_alltest = pilotb_exp3a %>%
+alldata_exp3a_alltest = alldata_exp3a %>%
   select(!Correct) %>%
   pivot_wider(names_from = object,
               values_from = Response) 
 
-pilotb_exp3a_alltest = pilotb_exp3a_alltest %>%
-  mutate(Average_Response = rowMeans(pilotb_exp3a_alltest[4:11], na.rm = TRUE))
+alldata_exp3a_alltest = alldata_exp3a_alltest %>%
+  mutate(Average_Response = rowMeans(alldata_exp3a_alltest[4:11], na.rm = TRUE))
 
-t.test(pilotb_exp3a_alltest$Average_Response, mu = 0.5, alternative = "two.sided")
+t.test(alldata_exp3a_alltest$Average_Response, mu = 0.5, alternative = "two.sided")
 ```
 
 ## Discussion
