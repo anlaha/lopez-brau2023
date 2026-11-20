@@ -101,9 +101,16 @@ Data preparation following the analysis plan.
 	
 ```{r include=F}
 ### Data Preparation
+# REVIEW: on an initial render, it stops here! With quarto render from the terminal,
+# running install.packages() gives me the error (contrib.url). Maybe delete this line
+# and install renv once in the console instead? I worked around this issue by commenting it out
 install.packages("renv")
 
 #### Load Relevant Libraries and Functions
+# REVIEW: ggtext and paletteer weren't installed, and I couldn't find anything that said
+# they would be needed other than here in the code. I'd list the packages in the README, or run 
+# renv::init() once in the console from the repo's top folder and commit renv.lock to keep 
+# versions stable! I worked around the issue by installing the packages manually
 library(lme4)
 library(tidyverse)
 library(here)
